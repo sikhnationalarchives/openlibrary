@@ -16,8 +16,10 @@ from openlibrary.core import support
 
 
 def sendmail(to, msg, cc=None):
+#    f=open('/home/vagrant/maillog','w')     
+#    f.write('About to send email to %s'%to)
     cc = cc or []
-    if config.get('dummy_sendmail'):
+    if False and config.get('dummy_sendmail'):
         message = ('' +
             'To: ' + to + '\n' +
             'From:' + config.from_address + '\n' +
@@ -27,7 +29,16 @@ def sendmail(to, msg, cc=None):
 
         print >> web.debug, "sending email", message
     else:
-        web.sendmail(config.from_address, to, subject=msg.subject.strip(), message=web.safestr(msg), cc=cc)
+	web.config.smtp_server = 'smtp.gmail.com'
+	web.config.smtp_port = 587
+	web.config.smtp_username = 'Sundar098765@gmail.com'
+	web.config.smtp_password = 'Sundar098765test'
+	web.config.smtp_starttls = True
+#	f=open('/home/vagrant/maillog','w')
+#	f.write('About to send email to %s'%to)
+        a = web.sendmail(config.from_address, to, subject=msg.subject.strip(), message=web.safestr(msg), cc=cc)
+#	f.write('mail sent/ result-%s'%a)
+#    f.close()
 
 def verify_hash(secret_key, text, hash):
     """Verifies if the hash is generated

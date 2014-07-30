@@ -162,14 +162,13 @@ def is_allowed_itemid(identifier):
     return True            
 
 def update_keys(keys):
-    keys = (k for k in keys if k.count("/") == 2 and k.split("/")[1] in ["books", "authors", "works"])
+    keys = (k for k in keys if k.count("/") == 2 and k.split("/")[1] in ["books", "authors", "works", "subject", "subjects"])
 
     count = 0
     for chunk in web.group(keys, 100):
         chunk = list(chunk)
         count += len(chunk)
         update_work.update_keys(chunk, commit=False)
-
     if count:
         logger.info("updated %d documents", count)
 
@@ -194,7 +193,7 @@ class Solr:
             return
 
         dt = time.time() - self.t_start
-        if self.total_docs > 100 or dt > 60:
+        if self.total_docs > 1 or dt > 1:
             logger.info("doing solr commit (%d docs updated, last commit was %0.1f seconds ago)", self.total_docs, dt)
             self._solr_commit()
             self.reset()

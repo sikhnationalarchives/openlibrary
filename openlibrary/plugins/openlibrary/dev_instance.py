@@ -126,7 +126,7 @@ def add_ol_user():
     if web.ctx.site.get("/people/openlibrary") is None:
         web.ctx.site.register(
             username="openlibrary",
-            email="openlibrary@example.com",
+            email="sandeepsahota@gmail.com",
             password="openlibrary",
             displayname="Open Library")
         web.ctx.site.activate_account(username="openlibrary")

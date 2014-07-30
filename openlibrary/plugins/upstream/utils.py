@@ -20,7 +20,7 @@ from infogami.infobase.client import Thing, Changeset, storify
 
 from openlibrary.core.helpers import commify, parse_datetime
 from openlibrary.core.middleware import GZipMiddleware
-from openlibrary.core import cache, ab
+from openlibrary.core import cache
     
 class MultiDict(DictMixin):
     """Ordered Dictionary that can store multiple values.
@@ -349,7 +349,7 @@ def get_locale():
 @public
 def process_version(v):
     """Looks at the version and adds machine_comment required for showing "View MARC" link."""
-    importers = set(['/people/ImportBot', '/people/EdwardBot', '/people/LCImportBot', '/people/AnandBot'])
+    importers = set(['/people/ImportBot', '/people/EdwardBot', '/people/LCImportBot'])
     comments = [
         "found a matching marc record",
         "add publisher and source",
@@ -373,23 +373,6 @@ def putctx(key, value):
     """Save a value in the context."""
     context[key] = value
     return ""
-
-class Metatag:
-    def __init__(self, tag="meta", **attrs):
-        self.tag = tag
-        self.attrs = attrs
-
-    def __str__(self):
-        attrs = " ".join('%s="%s"' % (web.websafe(k), web.websafe(v)) for k, v in self.attrs.items())
-        return "<%s %s />" % (self.tag, attrs)
-
-    def __repr__(self):
-        return "Metatag(%s)" % str(self)
-
-@public
-def add_metatag(tag="meta", **attrs):
-    context.setdefault('metatags', [])
-    context.metatags.append(Metatag(tag, **attrs))
     
 def pad(seq, size, e=None):
     """
@@ -668,8 +651,7 @@ def setup():
     web.template.Template.globals.update({
         'HTML': HTML,
         'request': Request(),
-        'logger': logging.getLogger("openlibrary.template"),
-        'get_ab_value': ab.get_ab_value
+        'logger': logging.getLogger("openlibrary.template")
     })
     
     from openlibrary.core import helpers as h

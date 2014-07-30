@@ -363,9 +363,14 @@ re_year_range = re.compile('^(\d{4})-(\d{4})$')
 
 def work_object(w): # called by works_by_author
     ia = w.get('ia', [])
+    ec = ''
+    try:
+        ec = w['edition_count']
+    except KeyError:
+        ec = '0'
     obj = dict(
         authors = [web.storage(key='/authors/' + k, name=n) for k, n in zip(w['author_key'], w['author_name'])],
-        edition_count = w['edition_count'],
+        edition_count = ec,
         key = '/works/' + w['key'],
         title = w['title'],
         public_scan = w.get('public_scan_b', bool(ia)),
@@ -375,8 +380,7 @@ def work_object(w): # called by works_by_author
         url = '/works/' + w['key'] + '/' + urlsafe(w['title']),
         cover_edition_key = w.get('cover_edition_key'),
         first_publish_year = (w['first_publish_year'] if 'first_publish_year' in w else None),
-        ia = w.get('ia', []),
-        cover_i = w.get('cover_i')
+        ia = w.get('ia', [])
     )
     if obj['lending_edition']:
         doc = web.ctx.site.store.get("ebooks/books/" + obj['lending_edition']) or {}
@@ -479,7 +483,7 @@ def works_by_author(akey, sort='editions', page=1, rows=100):
     fields = ['key', 'author_name', 'author_key', 'title', 'subtitle',
         'edition_count', 'ia', 'cover_edition_key', 'has_fulltext',
         'first_publish_year', 'public_scan_b', 'lending_edition_s',
-        'overdrive_s', 'ia_collection_s', 'cover_i']
+        'overdrive_s', 'ia_collection_s']
     fl = ','.join(fields)
     solr_select = solr_select_url + "?q.op=AND&q=%s&fq=&start=%d&rows=%d&fl=%s&wt=json" % (q, offset, rows, fl)
     facet_fields = ["author_facet", "language", "publish_year", "publisher_facet", "subject_facet", "person_facet", "place_facet", "time_facet"]
@@ -592,14 +596,14 @@ class subject_search(delegate.page):
 
     def get_results(self, q, offset=0, limit=100):
         if config.get('single_core_solr'):            
-            valid_fields = ['key', 'name', 'subject_type', 'work_count']
+            valid_fields = ['key', 'name', 'subject_type', 'work_count', 'subject']
         else:
             valid_fields = ['key', 'name', 'type', 'count']
 
         q = escape_colon(escape_bracket(q), valid_fields)
         params = {
             "q.op": "AND",
-            "q": q,
+            "q": '*',
             "start": offset,
             "rows": limit,
             "fl": ",".join(valid_fields),
@@ -607,7 +611,7 @@ class subject_search(delegate.page):
             "wt": "json"
         }
         if config.get('single_core_solr'):
-            params['fq'] = 'type:subject'
+            params['fq'] = 'subject:' + web.urlquote(q)
             params['sort'] = 'work_count desc'
         else:                
             params['sort'] = 'count desc'
@@ -619,10 +623,25 @@ class subject_search(delegate.page):
         if config.get('single_core_solr'):
             response['docs'] = [self.process_doc(doc) for doc in response['docs']]
 
+        addocs = []
+        added = []
+        for doc in response['docs']:
+            if (len(doc['subject']) > 0):
+                for subj in doc['subject']:
+                    m = re.compile("^.*" + q + ".*$", re.IGNORECASE)
+                    if (m.match(subj)):
+                        if (subj.lower() not in added):
+                            doc1 = doc.copy()
+                            doc1['name'] = subj
+                            addocs.append(doc1)
+                            added.append(subj.lower())
+        response['numFound'] = len(added)
+        results['response']['docs'] = addocs
         return results
 
     def process_doc(self, doc):
         doc['type'] = doc.get('subject_type', 'subject')
+        # doc['name'] = doc.get('subject')[0]
         doc['count'] = doc.get('work_count', 0)
         return doc
 

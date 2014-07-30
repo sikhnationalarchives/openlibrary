@@ -22,9 +22,9 @@ def get_authors_solr():
 
 def get_subjects_solr():
     if config.get('single_core_solr'):
-        base_url = "http://%s/solr" % config.plugin_worksearch.get('subjects_solr')
+        base_url = "http://%s/solr" % config.plugin_worksearch.get('subject_solr')
     else:
-        base_url = "http://%s/solr/subjects" % config.plugin_worksearch.get('subjects_solr')
+        base_url = "http://%s/solr/subjects" % config.plugin_worksearch.get('subject_solr')
     return Solr(base_url)
 
 def work_search(query, limit=20, offset=0, **kw):
@@ -39,6 +39,7 @@ def work_search(query, limit=20, offset=0, **kw):
         "edition_count",
         "ia",
         "cover_edition_key",
+        "cover_id",
         "has_fulltext",
         "subject",
         "ia_collection_s",
@@ -66,11 +67,6 @@ def process_work_query(query):
     if "author" in query and isinstance(query["author"], dict):
         author = query.pop("author")
         query["author_key"] = author["key"]
-
-    ebook = query.pop("ebook", None)
-    if ebook == True or ebook == "true":
-        query["has_fulltext"] = "true"
-
     return query
 
 def work_wrapper(w):

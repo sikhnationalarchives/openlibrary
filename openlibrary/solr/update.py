@@ -4,8 +4,8 @@ from urllib import urlopen, quote_plus
 
 re_escape = re.compile("([%s])" % re.escape(r'+-!(){}[]^"~*?:\\'))
 
-solr_works = 'ol-solr:8983'
-solr_subjects = 'ol-solr:8983'
+solr_works = 'localhost:8983'
+solr_subjects = 'localhost:8983'
 
 def subject_count(field, subject):
     if len(subject) > 256:

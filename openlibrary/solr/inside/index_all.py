@@ -12,7 +12,7 @@ def add_field(doc, name, value):
     field.text = normalize('NFC', unicode(value))
     doc.append(field)
 
-solr_host = 'ia331509:8984'
+solr_host = '75.98.173.37:8983'
 
 def find_abbyy(dir_html, ia):
     if 'abbyy' not in dir_html:
@@ -225,7 +225,7 @@ def status_thread():
         print 'solr queue:       %8d' % solr_queue.qsize()
 
         input_counter_lock.acquire()
-        rec_per_sec = float(input_count) / run_time
+        rec_per_sec = float(input_count) / run_time + 1
         remain = total - input_count
         input_counter_lock.release()
 

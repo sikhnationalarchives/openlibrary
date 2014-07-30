@@ -21,7 +21,6 @@ class SolrWriter(object):
 
         self.conn = None
         self.identifier_field = "key"
-        self.pending_updates = []
 
     def get_conn(self):
         if self.conn is None:
@@ -33,7 +32,7 @@ class SolrWriter(object):
         """
         conn = self.get_conn()
 
-        logger.info('request: %r', xml[:65] + '...' if len(xml) > 65 else xml)
+        logger.debug('request: %r', xml[:65] + '...' if len(xml) > 65 else xml)
         conn.request('POST', self.update_url, xml, { 'Content-type': 'text/xml;charset=utf-8'})
         response = conn.getresponse()
         response_body = response.read()
@@ -43,31 +42,15 @@ class SolrWriter(object):
             logger.error(response_body)
         assert response.reason == 'OK'
 
-    def delete(self, key):
-        logger.info("deleting %s", key)
-        q = '<delete><id>%s</id></delete>' % key
-        self.request(q)
-
-    def update(self, document):        
+    def update(self, document):
         logger.info("updating %s", document.get(self.identifier_field))
-        self.pending_updates.append(document)
-        if len(self.pending_updates) >= 100:
-            self.flush()
-        return
-
-    def flush(self):
-        if self.pending_updates:
-            root = Element("add")
-            for doc in self.pending_updates:
-                node = dict2element(doc)
-                root.append(node)
-            logger.info("flushing %d documents", len(self.pending_updates))
-            self.pending_updates = []
-            xml = tostring(root).encode('utf-8')
-            self.request(xml)
+        node = dict2element(document)
+        root = Element("add")
+        root.append(node)
+        xml = tostring(root).encode('utf-8')
+        self.request(xml)
 
     def commit(self):
-        self.flush()
         logger.info("<commit/>")
         self.request("<commit/>")
 
@@ -88,13 +71,8 @@ def add_field(doc, name, value):
         return
     else:
         field = Element("field", name=name)
-        if not isinstance(value, basestring):
-            value = str(value)
         try:
-            value = strip_bad_char(value)
-            if isinstance(value, str):
-                value = value.decode('utf-8')
-            field.text = normalize('NFC', value)
+            field.text = normalize('NFC', unicode(strip_bad_char(value)))
         except:
             logger.error('Error in normalizing %r', value)
             raise

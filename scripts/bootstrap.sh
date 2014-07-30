@@ -2,7 +2,7 @@
 # Bootstrap script to setup vagrant dev-instance for Open Library
 
 # @@@ Change the following 2 lines if you want to install OL from a different place or as a different user
-OL_ROOT=/vagrant
+OL_ROOT=$HOME/openlibrary/
 OL_USER=vagrant
 
 # Set the locale to POSIX
@@ -40,8 +40,7 @@ python-yaml
 python-simplejson
 python-sphinx
 python-celery
-python-sqlalchemy
-python-pytest"
+python-sqlalchemy"
 
 apt-get install -y $APT_PACKAGES
 
@@ -53,8 +52,7 @@ web.py==0.33
 pystatsd==0.1.6
 eventer==0.1.1
 OL-GeoIP==1.2.4
-mockcache
-sixpack-client"
+mockcache"
 
 REINDEX_SOLR=no
 
@@ -78,11 +76,11 @@ function setup_database() {
     else
         echo "pg_user $OL_USER already exists. no need to setup database"
     fi
-}   
+}
 
 function setup_ol() {
     # Download sample dev-instance database from archive.org
-    wget https://archive.org/download/ol_vendor/openlibrary-devinstance.pg_dump.gz -O /tmp/openlibrary-devinstance.pg_dump.gz
+    wget http://archive.org/download/ol_vendor/openlibrary-devinstance.pg_dump.gz -O /tmp/openlibrary-devinstance.pg_dump.gz
     zcat /tmp/openlibrary-devinstance.pg_dump.gz | sudo -u $OL_USER psql openlibrary
 
     # This is an alternative way to install OL from scratch
@@ -97,13 +95,6 @@ function setup_nginx() {
     ln -sf /etc/nginx/sites-available/openlibrary.conf /etc/nginx/sites-enabled/
     sudo /etc/init.d/nginx restart
 }
-
-# pip version 1.5.4 gets into some issues when old version of requests is installed.
-# get the latest version of pip in that case
-if pip --version | grep -q 1.5.4
-then
-    pip install -U pip
-fi
 
 pip install $PYTHON_PACKAGES
 

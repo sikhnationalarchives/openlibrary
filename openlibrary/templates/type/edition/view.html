@@ -2,13 +2,6 @@ $def with (page)
 
 $var title: $page.title
 
-$add_metatag(property="twitter:card", content="summary")
-$add_metatag(property="twitter:site", content="@openlibrary")
-$add_metatag(property="twitter:title", content=page.title)
-$add_metatag(property="twitter:description", content="View the book on Open Library.")
-$ cover_url = "https:" + (page.get_cover_url("M") or "//openlibrary.org/images/icons/avatar_book-sm.png")
-$add_metatag(property="twitter:image", content=cover_url)
-
 $code:
     def has_any(*keys):
         return any(page[k] for k in keys)
@@ -65,7 +58,10 @@ $def display_identifiers(label, ids, itemprop=None):
                     $if -1 != id.value.find('openlib-'):
                         $continue
                     $if id.url:
-                        <a href="$id.url">$id.value</a>$sep
+                        $if "archive.org" in id.url :
+                            <a href="$id.url.replace("http://www.archive.org/details/", "http://canadiansikharchives.com/book.php?id=")">$id.value</a>$sep
+                        $else:
+                            <a href="$id.url">$id.value</a>$sep
                     $else:
                         ${id.value}$sep
             </span></td>
@@ -142,7 +138,7 @@ $ ebook_status = page.get_ebook_status()
 $if ebook_status == "read-online":
     <div class="page-banner sansserief">
         This title is part of the <a href="https://openlibrary.org/read">classic eBook collection</a>. 
-        <a class="button" href="https://archive.org/stream/$page.ocaid">Read online now!</a>
+        <a class="button" href="http://canadiansikharchives.com/book.php?id=$page.ocaid">Read online now!</a>
     </div>
 $elif ebook_status == "borrow-available":
     <div class="page-banner sansserief">

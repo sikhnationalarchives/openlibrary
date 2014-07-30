@@ -84,8 +84,5 @@ destroy:
 	rm -rf var usr env
 
 reindex-solr:
-	psql openlibrary -t -c 'select key from thing' | sed 's/ *//' | grep '^/books/' | PYTHONPATH=$(PWD) xargs python openlibrary/solr/update_work.py -s http://0.0.0.0/ -c conf/openlibrary.yml
-	psql openlibrary -t -c 'select key from thing' | sed 's/ *//' | grep '^/authors/' | PYTHONPATH=$(PWD) xargs python openlibrary/solr/update_work.py -s http://0.0.0.0/ -c conf/openlibrary.yml
-
-test:
-	py.test openlibrary/core/tests
+	psql openlibrary -t -c 'select key from thing' | sed 's/ *//' | grep '^/books/' | PYTHONPATH=/home/vagrant/openlibrary xargs python /home/vagrant/openlibrary/openlibrary/solr/update_work.py -s http://75.98.173.37:8080/ -c /home/vagrant/openlibrary/conf/openlibrary.yml
+	psql openlibrary -t -c 'select key from thing' | sed 's/ *//' | grep '^/authors/' | PYTHONPATH=/home/vagrant/openlibrary xargs python /home/vagrant/openlibrary/openlibrary/solr/update_work.py -s http://75.98.173.37:8080/ -c /home/vagrant/openlibrary/conf/openlibrary.yml

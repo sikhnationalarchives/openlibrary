@@ -1,0 +1,30 @@
+$def with (page)
+
+        <div id="header">
+
+            <div id="headerLogo">
+              <h2><a href="/" title="Go Home"><img src="/images/logo_OL-lg.png" alt="$_('Sikh Archives')" width="220" height="140"/></a></h2>
+              <p class="tagline">$_("One page for every book.")</p>
+            </div>
+
+	     <br/>
+            <div class="col-12">
+                <ul class="tabs"><br/>                    
+		      <li class="ui-tabs-active"><a href="/" title="$_('HOME')">$_("HOME")</a></li>
+                    <li><a href="/subjects" title="$_('Explore subjects')">$_("Subjects")</a></li>
+                    <li><a href="/authors" title="$_('Explore authors')">$_("Authors")</a></li>
+                    $if "dev" in ctx.features and ctx.user and ctx.user.is_admin():
+                        <li><a href="/books/add" title="$_('Add a new book to Sikh national Archives')">$_("Add a Book")</a></li>
+                        <li><a class="adminOnly" href="/theme/files" title="$_('Theme Editor')">$_("Theme")</a></li>
+                    $else:
+                        <li class="second" style="display:none"><a href="/books/add" title="$_('Add a new book to Sikh National Archives')">$_("Add a Book")</a></li>
+                    <!--li><a href="/lists" title="$_('Manage your lists')">$_("Lists")</a></li>
+                    <li><a href="/recentchanges" title="$_('Recent edits and additions')">$_("Recently")</a></li-->
+                    <li><a href="/help" title="$_('Get help')">$_("Help")</a></li>
+                </ul>
+            </div>
+
+
+            <!--div id="headerPlace"></div-->
+
+        </div>

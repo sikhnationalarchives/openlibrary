@@ -157,7 +157,7 @@ class ReadProcessor:
         ekey = edition.get('key', '')
 
         if status == 'full access':
-            itemURL = 'http://www.archive.org/stream/%s' % (iaid)
+            itemURL = 'http://canadiansikharchives.com/book.php?id=%s' % (iaid)
         else:
             # this could be rewrit in terms of iaid...
             itemURL = u'http://openlibrary.org%s/%s/borrow' % (ekey,

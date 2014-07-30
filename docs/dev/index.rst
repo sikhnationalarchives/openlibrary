@@ -4,17 +4,14 @@ Getting Started with Development
 Working with JavaScript
 -----------------------
 
-
 Introduction
 ~~~~~~~~~~~~
 
 The Open Library website makes heavy use of jQuery libraries. 
 
-Except ``jquery`` and ``jquery-ui``, all other third-party javascript 
-libraries are combined and included as ``vendor.js``.
+Except ``jquery`` and ``jquery-ui``, all other third-party javascript libraries are combined and included as ``vendor.js``.
 
 All the custom javascripts are combined and includes as ``all.js``.
-
 
 vendor.js and third party libraries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,7 +34,6 @@ To include a new third-party library:
 .. _vendor/js: http://github.com/internetarchive/openlibrary/tree/master/vendor/js
 .. _static/js/vendor.jsh: http://github.com/internetarchive/openlibrary/tree/master/static/upstream/js/vendor.jsh
 
-
 all.js and custom javascripts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -50,14 +46,12 @@ loaded.
 
 If you make any changes to any of the javascript files, run ``make js`` to regenerate ``build/js/all.js``.
 
-
 Working with CSS
 ----------------
 
-All stylesheets are in ``static/css``. They are combined to generate 
-``build/css/all.css``, which is included in all the web pages.
+All the stylesheets are put in the repo at ``static/css``.
+All these stylesheets are combined to generate ``build/css/all.css``, which is included in all the web pages.
 
-It's a good idea to break CSS into multiple logical files, 
-instead of putting it in one monolithic file.
+It is a good idea to break the css into multiple logical files instead of putting it in one monolithic file.
 
-If you make changes to any CSS, run ``make css`` to regenerate ``build/css/all.css``.
+If you make any changes to any of the css files, run ``make css`` to regenerate ``build/css/all.css``.

@@ -119,7 +119,7 @@ function less(header) {
     </div>
     $if param:
         <h1>
-            $_("Search Results")
+            $_("Search Results A")
             <span class="shift">$commify(num_found) hit$("s" if num_found != 1 else "")</span>
         </h1>
     $else:
@@ -236,17 +236,19 @@ function less(header) {
             <li>
             <span class="bookcover">
                 $if doc.cover_edition_key:
-                    $ cover = get_coverstore_url() + "/b/olid/%s-S.jpg" % doc.cover_edition_key 
+                    $ cover = get_coverstore_url() + "/b/id/%s-S.jpg" % doc.cover_edition_key[3:-1]
                 $elif doc.ia:
                     $ cover = "//archive.org/download/%s/page/cover_w60_h60.jpg" % doc.ia[0]
                 $else:
                     $ cover = "/images/icons/avatar_book-sm.png"
-                <a href="$doc.url"><img src="$cover" height="70" alt="Cover of: $doc.title$(': ' + doc.subtitle if doc.get('subtitle', None) else '')" title="Cover of: $doc.title$(': ' + doc.subtitle if doc.get('subtitle', None) else '')"/></a>
+		<!-- Objectsbloom Inc. (C) 2013" -->
+                <a href="$doc.url.replace('works//works','works',1)"><img src="$cover" height="70" alt="Cover of: $doc.title$(': ' + doc.subtitle if doc.get('subtitle', None) else '')" title="Cover of: $doc.title$(': ' + doc.subtitle if doc.get('subtitle', None) else '')"/></a>
             </span>
             <span class="details">
                 <span class="resultTitle">
                     <h3 class="booktitle">
-                        <a href="$doc.url"
+			<!-- Objectsbloom Inc. (C) 2013" -->
+                        <a href="$doc.url.replace('works//works','works',1)"
                         class="results">$doc.title$(': ' + doc.subtitle if doc.get('subtitle', None) else '')</a>
                     </h3>
                     <span class="bookauthor">by
@@ -271,7 +273,7 @@ function less(header) {
             </span>
             $if doc.public_scan and doc.get('has_fulltext'):
                 <span class="actions">
-                    <a href="//archive.org/stream/$doc.ia[0]" title="$_('Open in online Book Reader. Downloads available in ePub, DAISY, PDF, TXT formats from main book page')">
+                    <a href="http://canadiansikharchives.com/book.php?id=$doc.ia[0]" title="$_('Open in online Book Reader. Downloads available in ePub, DAISY, PDF, TXT formats from main book page')">
                         <span class="image read"></span>
                         <span class="label">$_("Read")</span>
                     </a>                
@@ -306,7 +308,7 @@ function less(header) {
 
 $if error:
     <h3>BARF! Search engine ERROR!</h3>
-    <pre>$error.decode('utf-8', 'ignore')</pre>
+    <pre>$error</pre>
 $if param and not error:
     $if results.num_found != 0:
         <div id="searchFacets">
@@ -321,7 +323,7 @@ $if param and not error:
             $if not counts:
                 $continue
             <div class="facet $header">
-            $if header == 'author_key' and len(counts) > 1 and ctx.user and "merge-authors" in ctx.features:
+            $if header == 'author_key' and len(counts) > 1 and ctx.user:
                 $ keys = '&'.join('key=%s' % k for k, display, count in counts)
                 <h4 class="facetHead">$label <span class="merge"><a href="/authors/merge?$keys" title="Merge duplicate authors from this search">Merge duplicates</a></span></h4>
             $else:

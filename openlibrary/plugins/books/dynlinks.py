@@ -283,13 +283,13 @@ class DataProcessor:
             availability = get_ia_availability(itemid)
             
             d = {
-                "preview_url": "https://archive.org/details/" + itemid,
+                "preview_url": "http://canadiansikharchives.com/book.php?id=" + itemid,
                 "availability": availability
             }
                 
             prefix = "https://archive.org/download/%s/%s" % (itemid, itemid)
             if availability == 'full':
-                d["read_url"] = "https://archive.org/stream/%s" % (itemid)
+                d["read_url"] = "http://canadiansikharchives.com/book.php?id=%s" % (itemid)
                 d['formats'] = {
                     "pdf": {
                         "url": prefix + ".pdf"
@@ -394,7 +394,7 @@ def process_doc_for_viewapi(bib_key, page):
     
     if 'ocaid' in page:
         preview = get_ia_availability(page['ocaid'])
-        preview_url = 'https://archive.org/details/' + page['ocaid']
+        preview_url = 'http://canadiansikharchives.com/book.php?id=' + page['ocaid']
     else:
         preview = 'noview'
         preview_url = url

@@ -80,15 +80,8 @@ class Solr:
                     name = f
                 params['facet.field'].append(name)
 
-        # switch to POST request when the payload is too big.
-        # XXX: would it be a good idea to swithc to POST always?
-        payload = urlencode(params, doseq=True)
-        url = self.base_url + "/select"        
-        if len(payload) < 500:
-            url = url + "?" + payload
-            data = urllib2.urlopen(url).read()
-        else:
-            data = urllib2.urlopen(url, payload).read()
+        url = self.base_url + "/select?" + urlencode(params, doseq=True)
+        data = urllib2.urlopen(url).read()
         return self._parse_solr_result(
             simplejson.loads(data), 
             doc_wrapper=doc_wrapper, 

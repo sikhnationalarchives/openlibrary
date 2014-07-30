@@ -117,12 +117,9 @@ class IAMiddleware(ConnectionMiddleware):
         if itemid:
             edition_key = self._find_edition(sitename, itemid)
             if edition_key:
-                # Delete the store entry, indicating that this is no more is an item to be imported.
-                self._ensure_no_store_entry(sitename, itemid)
                 return self._make_redirect(itemid, edition_key)
             else:
-                metadata = ia.get_metadata(itemid)
-                doc = ia.edition_from_item_metadata(itemid, metadata)
+                doc = self._get_ia_item(itemid)
 
                 if doc is None:
                     # Delete store entry, if it exists.
@@ -147,16 +144,7 @@ class IAMiddleware(ConnectionMiddleware):
             return ConnectionMiddleware.get(self, sitename, data)
 
     def _find_edition(self, sitename, itemid):
-        # match ocaid
         q = {"type": "/type/edition", "ocaid": itemid}
-        keys_json = ConnectionMiddleware.things(self, sitename, {"query": simplejson.dumps(q)})
-        keys = simplejson.loads(keys_json)
-        if keys:
-            return keys[0]
-
-        # Match source_records
-        # When there are multiple scan for the same edition, only scan_records is updated.
-        q = {"type": "/type/edition", "source_records": "ia:" + itemid}
         keys_json = ConnectionMiddleware.things(self, sitename, {"query": simplejson.dumps(q)})
         keys = simplejson.loads(keys_json)
         if keys:
@@ -173,6 +161,113 @@ class IAMiddleware(ConnectionMiddleware):
             "last_modified": timestamp
         }
         return simplejson.dumps(d)
+
+    def _is_valid_item(self, itemid, metadata):
+        # Not a book, or scan not complete or no images uploaded
+        if metadata.get("mediatype") != "texts" or metadata.get("repub_state", "4") not in ["4", "6"] or "imagecount" not in metadata:
+            return False
+
+        # items start with these prefixes are not books
+        ignore_prefixes = config.get("ia_ignore_prefixes", [])
+        for prefix in ignore_prefixes:
+            # ignore all JSTOR items
+            if itemid.startswith(prefix):
+                return False
+
+        # Anand - Oct 2013
+        # If an item is with noindex=true and it is not marked as lending or printdisabled, ignore it.
+        # It would have been marked as noindex=true for some reason.
+        collections = metadata.get("collection", [])
+        if not isinstance(collections, list):
+            collections = [collections]
+        if metadata.get("noindex") == "true" \
+            and "printdisabled" not in collections \
+            and "inlibrary" not in collections \
+            and "lendinglibrary" not in collections:
+            return
+
+        return True
+
+    def _get_ia_item(self, itemid):
+        timestamp = {"type": "/type/datetime", "value": "2010-01-01T00:00:00"}
+        metadata = ia.get_metadata(itemid)
+
+        if not self._is_valid_item(itemid, metadata):
+            return None
+
+        d = {   
+            "key": "/books/ia:" + itemid,
+            "type": {"key": "/type/edition"}, 
+            "title": itemid, 
+            "ocaid": itemid,
+            "revision": 1,
+            "created": timestamp,
+            "last_modified": timestamp
+        }
+
+        def add(key, key2=None):
+            key2 = key2 or key
+            # sometimes the empty values are represneted as {} in metadata API. Avoid them.
+            if key in metadata and metadata[key] != {}:
+                value = metadata[key]
+                if isinstance(value, list):
+                    value = [v for v in value if v != {}]
+                    if value:
+                        if isinstance(value[0], basestring):
+                            value = "\n\n".join(value)
+                        else:
+                            value = value[0]
+                    else:
+                        # empty list. Ignore.
+                        return
+
+                d[key2] = value
+
+        def add_list(key, key2):
+            key2 = key2 or key
+            # sometimes the empty values are represneted as {} in metadata API. Avoid them.
+            if key in metadata and metadata[key] != {}:
+                value = metadata[key]
+                if not isinstance(value, list):
+                    value = [value]
+                d[key2] = value
+
+        def add_isbns():
+            isbns = metadata.get('isbn')
+            isbn_10 = []
+            isbn_13 = []
+            if isbns:
+                for isbn in isbns:
+                    isbn = isbn.replace("-", "").strip()
+                    if len(isbn) == 13:
+                        isbn_13.append(isbn)
+                    elif len(isbn) == 10:
+                        isbn_10.append(isbn)
+            if isbn_10:
+                d["isbn_10"] = isbn_10
+            if isbn_13: 
+                d["isbn_13"] = isbn_13
+
+        def add_subjects():
+            collections = metadata.get("collection", [])
+            mapping = {
+                "inlibrary": "In library",
+                "lendinglibrary": "Lending library"
+            }
+            subjects = [subject for c, subject in mapping.items() if c in collections]
+            if subjects:
+                d['subjects'] = subjects
+
+        add('title')
+        add('description', 'description')
+        add_list('publisher', 'publishers')
+        add_list("creator", "author_names")
+        add('date', 'publish_date')
+
+        add_isbns()
+        add_subjects()
+        
+        return d
 
     def _ensure_no_store_entry(self, sitename, identifier):
         key = "ia-scan/" + identifier
@@ -329,8 +424,8 @@ class MemcacheMiddleware(ConnectionMiddleware):
         self.memcache.delete(key)
         stats.end()
         
-    def mc_add(self, key, value, time=0):
-        stats.begin("memcache.add", key=key, time=time)
+    def mc_add(self, key, value):
+        stats.begin("memcache.add", key=key)
         self.memcache.add(key, value)
         stats.end()
         
@@ -356,7 +451,7 @@ class MemcacheMiddleware(ConnectionMiddleware):
         if result is None:
             result = ConnectionMiddleware.store_get(self, sitename, path)
             if result:
-                self.mc_set(path, result, 3600) # cache it only for one hour
+                self.mc_add(path, result)
         return result
 
     def store_put(self, sitename, path, data):
@@ -388,30 +483,10 @@ class MemcacheMiddleware(ConnectionMiddleware):
         
     def account_request(self, sitename, path, method="GET", data=None):
         # For post requests, remove the account entry from the cache.
-        if method == "POST" and isinstance(data, dict):
-            deletes = []
-            if 'username' in data:
-                deletes.append("/_store/account/" + data["username"])
-
-                # get the email from account doc and invalidate the email.
-                # required in cases of email change.
-                try:
-                    docjson = self.store_get(sitename, "/_store/account/" + data['username'])
-                    doc = simplejson.loads(docjson)
-                    deletes.append("/_store/account-email/" + doc["email"])
-                    deletes.append("/_store/account-email/" + doc["email"].lower())
-                except client.ClientException:
-                    # ignore
-                    pass
-            if 'email' in data:
-                # if email is being passed, that that email doc is likely to be changed. 
-                # remove that also from cache.
-                deletes.append("/_store/account-email/" + data["email"])
-                deletes.append("/_store/account-email/" + data["email"].lower())
-
-            self.mc_delete_multi(deletes)
+        if method == "POST" and isinstance(data, dict) and "username" in data:
+            self.mc_delete("/_store/account/" + data["username"])
             result = ConnectionMiddleware.account_request(self, sitename, path, method, data)
-            self.mc_delete_multi(deletes)
+            self.mc_delete("/_store/account/" + data["username"])
         else:
             result = ConnectionMiddleware.account_request(self, sitename, path, method, data)
         return result

@@ -9,14 +9,6 @@ from copy import deepcopy
 from urllib import urlopen
 from collections import defaultdict
 from pprint import pprint
-import os
-
-def open_test_data(filename):
-    """Returns a file handle to file with specified filename inside test_data directory.
-    """
-    root = os.path.dirname(__file__)
-    fullpath = os.path.join(root, 'test_data', filename)
-    return open(fullpath)
 
 def add_languages(mock_site):
     languages = [
@@ -167,7 +159,7 @@ def test_duplicate_ia_book(mock_site):
 def test_from_marc_3(mock_site):
     add_languages(mock_site)
     ia = 'treatiseonhistor00dixo'
-    data = open_test_data(ia + '_meta.mrc').read()
+    data = open('test_data/' + ia + '_meta.mrc').read()
     assert len(data) == int(data[:5])
     rec = read_edition(MarcBinary(data))
     rec['source_records'] = ['ia:' + ia]
@@ -181,7 +173,7 @@ def test_from_marc_2(mock_site):
     add_languages(mock_site)
     ia = 'roadstogreatness00gall'
     
-    data = open_test_data(ia + '_meta.mrc').read()
+    data = open('test_data/' + ia + '_meta.mrc').read()
     assert len(data) == int(data[:5])
     rec = read_edition(MarcBinary(data))
     rec['source_records'] = ['ia:' + ia]
@@ -303,7 +295,7 @@ def test_add_db_name():
 def test_from_marc(mock_site):
     add_languages(mock_site)
     ia = 'coursepuremath00hardrich'
-    marc = MarcBinary(open_test_data(ia + '_meta.mrc').read())
+    marc = MarcBinary(open('test_data/' + ia + '_meta.mrc').read())
     rec = read_edition(marc)
     rec['source_records'] = ['ia:' + ia]
     reply = load(rec)
@@ -314,7 +306,7 @@ def test_from_marc(mock_site):
     assert reply['edition']['status'] == 'matched'
 
     ia = 'flatlandromanceo00abbouoft'
-    marc = MarcBinary(open_test_data(ia + '_meta.mrc').read())
+    marc = MarcBinary(open('test_data/' + ia + '_meta.mrc').read())
 
     rec = read_edition(marc)
     rec['source_records'] = ['ia:' + ia]
@@ -329,7 +321,7 @@ def test_real_example(mock_site):
     add_languages(mock_site)
 
     src = 'v38.i37.records.utf8:16478504:1254'
-    marc = MarcBinary(open_test_data(src).read())
+    marc = MarcBinary(open('test_data/' + src).read())
     rec = read_edition(marc)
     rec['source_records'] = ['marc:' + src]
     reply = load(rec)
@@ -339,7 +331,7 @@ def test_real_example(mock_site):
     assert reply['edition']['status'] == 'matched'
 
     src = 'v39.i28.records.utf8:5362776:1764'
-    marc = MarcBinary(open_test_data(src).read())
+    marc = MarcBinary(open('test_data/' + src).read())
     rec = read_edition(marc)
     rec['source_records'] = ['marc:' + src]
     reply = load(rec)
@@ -350,7 +342,7 @@ def test_missing_ocaid(mock_site):
     add_languages(mock_site)
     ia = 'descendantsofhug00cham'
     src = ia + '_meta.mrc'
-    marc = MarcBinary(open_test_data(src).read())
+    marc = MarcBinary(open('test_data/' + src).read())
     rec = read_edition(marc)
     rec['source_records'] = ['marc:testdata.mrc']
     reply = load(rec)
@@ -392,7 +384,7 @@ def test_extra_author(mock_site):
 
     ia = 'workshuberthowe00racegoog'
     src = ia + '_meta.mrc'
-    marc = MarcBinary(open_test_data(src).read())
+    marc = MarcBinary(open('test_data/' + src).read())
     rec = read_edition(marc)
     rec['source_records'] = ['ia:' + ia]
 
@@ -457,7 +449,7 @@ def test_missing_source_records(mock_site):
 
     ia = 'nurembergwarcrim1997marr'
     src = ia + '_meta.mrc'
-    marc = MarcBinary(open_test_data(src).read())
+    marc = MarcBinary(open('test_data/' + src).read())
     rec = read_edition(marc)
     rec['source_records'] = ['ia:' + ia]
 
@@ -509,7 +501,7 @@ def test_no_extra_author(mock_site):
     mock_site.save(edition)
 
     src = 'v39.i34.records.utf8:186503:1413'
-    marc = MarcBinary(open_test_data(src).read())
+    marc = MarcBinary(open('test_data/' + src).read())
     rec = read_edition(marc)
     rec['source_records'] = ['marc:' + src]
 

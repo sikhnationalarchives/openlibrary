@@ -68,28 +68,18 @@ def add_checkedout_status(books):
 
 @public
 def render_returncart(limit=60, randomize=True):
-    data = get_returncart(limit*5)
-
-    # Remove all inlibrary books if we not in a participating library
-    if not inlibrary.get_library():
-        data = [d for d in data if 'inlibrary_borrow_url' not in d]
-    
+    data = random_ebooks(20, 1)
     if randomize:
         random.shuffle(data)
     data = data[:limit]
     return render_template("books/carousel", storify(data), id="returncart_carousel")
 
 def get_returncart(limit):
-    if 'env' not in web.ctx:
-        delegate.fakeload()
-    
-    items = web.ctx.site.store.items(type='ebook', name='borrowed', value='false', limit=limit)
-    keys = [doc['book_key'] for k, doc in items if 'book_key' in doc]
-    books = web.ctx.site.get_many(keys)
-    return [format_book_data(book) for book in books if book.type.key == '/type/edition']
+    books = random_ebooks(20, 1)
+    return books
     
 # cache the results of get_returncart in memcache for 60 sec
-get_returncart = cache.memcache_memoize(get_returncart, "home.get_returncart", timeout=60)
+# get_returncart = cache.memcache_memoize(get_returncart, "home.get_returncart", timeout=60)
 
 @public
 def readonline_carousel(id="read-carousel"):
@@ -101,26 +91,34 @@ def readonline_carousel(id="read-carousel"):
     except Exception:
         logger.error("Failed to compute data for readonline_carousel", exc_info=True)
         return None
-        
-def random_ebooks(limit=2000):
+
+def _get_solr_cover_id(key):
+   
+    book = web.ctx.site.get(key)
+    return format_book_data(book)
+
+
+def random_ebooks(limit=20, ebooks=0):
     solr = search.get_works_solr()
-    sort = "edition_count desc"
+    sort = "last_modified_i desc"
+    q = 'type:work'
+    if (ebooks == 1):
+        q = 'has_fulltext:true'
     result = solr.select(
-        query='has_fulltext:true -public_scan_b:false', 
+        query=q, 
         rows=limit, 
         sort=sort,
         fields=[
-            'has_fulltext',
             'key',
             'ia',
             "title",
             "cover_edition_key",
+            "cover_id"
             "author_key", "author_name",
         ])
 
     def process_doc(doc):
         d = {}
-
         key = doc['key']
         # New solr stores the key as /works/OLxxxW
         if not key.startswith("/works/"):
@@ -133,15 +131,22 @@ def random_ebooks(limit=2000):
             d['authors'] = [{"key": key, "name": name} for key, name in zip(doc['author_key'], doc['author_name'])]
             
         if 'cover_edition_key' in doc:
-            d['cover_url'] = h.get_coverstore_url() + "/b/olid/%s-M.jpg" % doc['cover_edition_key']
-            
-        d['read_url'] = "//archive.org/stream/" + doc['ia'][0]
-        return d
+           w = _get_solr_cover_id(key)
+           # d['cover_url'] = h.get_coverstore_url() + "/b/id/%s-M.jpg" % doc['cover_edition_key']
+           d['cover_url'] = w.get("cover_url") # ['cover_url']
         
-    return [process_doc(doc) for doc in result['docs'] if doc.get('ia')]
+        if 'ia' in doc:    
+            d['read_url'] = "http://canadiansikharchives.com/book.php?id=" + doc['ia'][0]
+        else:
+            d['read_url'] = ""
+        return d
+    if (ebooks == 0):    
+        return [process_doc(doc) for doc in result['docs']]
+    else:
+        return [process_doc(doc) for doc in result['docs'] if not 'books' in doc.get('key')]
 
 # cache the results of random_ebooks in memcache for 15 minutes
-random_ebooks = cache.memcache_memoize(random_ebooks, "home.random_ebooks", timeout=15*60)
+# random_ebooks = cache.memcache_memoize(random_ebooks, "home.random_ebooks", timeout=15*60)
 
 def format_list_editions(key):
     """Formats the editions of the list suitable for display in carousel.
@@ -167,7 +172,7 @@ def format_list_editions(key):
     return [format_book_data(e) for e in editions.values()]
     
 # cache the results of format_list_editions in memcache for 5 minutes
-format_list_editions = cache.memcache_memoize(format_list_editions, "home.format_list_editions", timeout=5*60)
+# format_list_editions = cache.memcache_memoize(format_list_editions, "home.format_list_editions", timeout=5*60)
 
 def pick_best_edition(work):
     return (e for e in work.editions if e.ocaid).next()

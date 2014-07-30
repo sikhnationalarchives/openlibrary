@@ -14,7 +14,6 @@ import helpers as h
 from openlibrary.plugins.upstream.utils import get_history
 from openlibrary.plugins.upstream.account import Account
 from openlibrary import accounts
-from openlibrary.core import loanstats
 
 # relative imports
 from lists.model import ListMixin, Seed
@@ -238,7 +237,6 @@ class Edition(Thing):
         """
         d = {}
         if self.ocaid:
-            d['has_ebook'] = True
             d['daisy_url'] = self.url('/daisy')
 
             collections = self.get_ia_collections()
@@ -253,7 +251,7 @@ class Edition(Thing):
             elif 'printdisabled' in collections:
                 pass # ebook is not available 
             else:
-                d['read_url'] = "https://archive.org/stream/%s" % self.ocaid
+                d['read_url'] = "http://canadiansikharchives.com/book.php?id=%s" % self.ocaid
         return d
 
     def get_ia_collections(self):
@@ -408,9 +406,8 @@ class Work(Thing):
         }
 
     def _make_subject_link(self, title, prefix=""):
-        slug = web.safestr(title.lower().replace(' ', '_').replace(',',''))
-        key = "/subjects/%s%s" % (prefix, slug)
-        return web.storage(key=key, title=title, slug=slug)
+        key = "/subjects/%s%s" % (prefix, web.safestr(title.lower().replace(' ', '_').replace(',','')))
+        return web.storage(key=key, title=title)
 
     def get_subject_links(self, type="subject"):
         """Returns all the subjects as link objects.         
@@ -428,38 +425,6 @@ class Work(Thing):
             return [self._make_subject_link(s, "time:") for s in self.subject_times]
         else:
             return []
-
-    def get_ebook_info(self):
-        """Returns the ebook info with the following fields.
-
-        * read_url - url to read the book
-        * borrow_url - url to borrow the book
-        * borrowed - True if the book is already borrowed
-        * daisy_url - url to access the daisy format of the book
-
-        Sample return values:
-
-            {
-                "read_url": "http://www.archive.org/stream/foo00bar",
-                "daisy_url": "/books/OL1M/foo/daisy"
-            }
-
-            {
-                "daisy_url": "/books/OL1M/foo/daisy",
-                "borrow_url": "/books/OL1M/foo/borrow",
-                "borrowed": False
-            }
-        """
-        solrdata = web.storage(self._solr_data or {})
-        d = {}
-        if solrdata.get('has_fulltext') and solrdata.get('public_scan_b'):
-            d['read_url'] = "https://archive.org/stream/{0}".format(solrdata.ia[0])
-            d['has_ebook'] = True
-        elif solrdata.get('lending_edition'):
-            d['borrow_url'] = "/books/{0}/x/borrow".format(solrdata.lending_edition)
-            d['borrowed'] = solrdata.checked_out
-            d['has_ebook'] = True
-        return d
 
 class Author(Thing):
     """Class to represent /type/author objects in OL.
@@ -745,9 +710,8 @@ class Library(Thing):
         return [parse(line) for line in self.addresses.splitlines() if line.strip()]
 
     def get_loans_per_day(self, resource_type="total"):
-        name = self.key.split("/")[-1]
-        stats = loanstats.LoanStats(library=name)
-        return stats.get_loans_per_day(resource_type=resource_type)
+        from openlibrary.plugins.openlibrary.libraries import LoanStats
+        return LoanStats().get_loans_per_day(resource_type=resource_type, library=self.key)
         
 class Subject(web.storage):
     def get_lists(self, limit=1000, offset=0, sort=True):

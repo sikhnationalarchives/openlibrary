@@ -8,7 +8,7 @@ import logging, logging.config
 from infogami.utils import template, macro, i18n
 import infogami
 
-old_plugins = ["openlibrary", "search", "worksearch", "inside", "books", "admin", "upstream", "importapi", "recaptcha"]
+old_plugins = ["openlibrary", "search", "worksearch", "books", "admin", "upstream", "importapi"]
 
 def setup():
     setup_logging()
@@ -47,6 +47,5 @@ def load_views():
     """Registers all views by loading all view modules.
     """
     from .views import showmarc
-    from .views import loanstats
 
 setup()

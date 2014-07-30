@@ -47,7 +47,10 @@ class account_create(delegate.page):
     path = "/account/create"
 
     def GET(self):
+	f1=open('/home/vagrant/maillog','w')     
+	f1.write('aaaaaaAbout to send email to %s')
         f = self.get_form()
+	f1.close()
         return render['account/create'](f)
 
     def get_form(self):

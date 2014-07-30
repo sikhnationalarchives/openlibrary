@@ -588,15 +588,8 @@ class book_edit(delegate.page):
             raise web.notfound()
 
         work = edition.works and edition.works[0]
-
-        if not work:
-            # HACK: create dummy work when work is not available to make edit form work
-            work = web.ctx.site.new('', {
-                'key': '', 
-                'type': {'key': '/type/work'}, 
-                'title': edition.title,
-                'authors': [{'type': '/type/author_role', 'author': {'key': a['key']}} for a in edition.get('authors', [])]
-            })
+        # HACK: create dummy work when work is not available to make edit form work
+        work = work or web.ctx.site.new('', {'key': '', 'type': {'key': '/type/work'}, 'title': edition.title})
 
         recap_plugin_active = 'recaptcha' in config.get('plugins')
 

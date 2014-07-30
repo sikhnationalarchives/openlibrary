@@ -63,7 +63,7 @@ def sanitize(html):
                 
     try:
         html = genshi.HTML(html)
-    except (genshi.ParseError, UnicodeDecodeError, UnicodeError):
+    except (genshi.ParseError, UnicodeDecodeError):
         if BeautifulSoup:
             # Bad html. Tidy it up using BeautifulSoup
             html = str(BeautifulSoup(html))

@@ -1,10 +1,5 @@
-import logging
-
-logger = logging.getLogger("openlibrary")
-
 def check_digit_10(isbn):
-    if len(isbn) != 9:
-        raise ValueError("%s is not a valid ISBN 10" % isbn)
+    assert len(isbn) == 9
     sum = 0
     for i in range(len(isbn)):
         c = int(isbn[i])
@@ -17,8 +12,7 @@ def check_digit_10(isbn):
         return str(r)
 
 def check_digit_13(isbn):
-    if len(isbn) != 12:
-        raise ValueError
+    assert len(isbn) == 12
     sum = 0
     for i in range(len(isbn)):
         c = int(isbn[i])
@@ -34,23 +28,19 @@ def check_digit_13(isbn):
 def isbn_13_to_isbn_10(isbn_13):
     isbn_13 = isbn_13.replace('-', '')
     try:
-        if len(isbn_13) != 13 or not isbn_13.isdigit()\
-        or not isbn_13.startswith('978')\
-        or check_digit_13(isbn_13[:-1]) != isbn_13[-1]:
-            raise ValueError("%s is not a valid ISBN 13" % isbn_13)
-    except ValueError as e:
-        logger.info("Exception caught in ISBN transformation: %s" % e)
+        assert len(isbn_13) == 13 and isbn_13.isdigit()
+        assert isbn_13.startswith('978')
+        assert check_digit_13(isbn_13[:-1]) == isbn_13[-1]
+    except AssertionError:
         return
     return isbn_13[3:-1] + check_digit_10(isbn_13[3:-1])
 
 def isbn_10_to_isbn_13(isbn_10):
     isbn_10 = isbn_10.replace('-', '')
     try:
-        if len(isbn_10) != 10 or not isbn_10[:-1].isdigit()\
-        or check_digit_10(isbn_10[:-1]) != isbn_10[-1]:
-            raise ValueError("%s is not a valid ISBN 10" % isbn_10)
-    except ValueError as e:
-        logger.info("Exception caught in ISBN transformation: %s" % e)
+        assert len(isbn_10) == 10 and isbn_10[:-1].isdigit()
+        assert check_digit_10(isbn_10[:-1]) == isbn_10[-1]
+    except AssertionError:
         return
     isbn_13 = '978' + isbn_10[:-1]
     return isbn_13 + check_digit_13(isbn_13)

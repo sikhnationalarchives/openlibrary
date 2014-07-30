@@ -33,15 +33,7 @@ def find(username=None, lusername=None, email=None):
     elif lusername:
         doc = query("lusername", lusername)
     elif email:
-        # the email stored in account doc is case-sensitive. 
-        # The lowercase of email is used in the account-email document. 
-        # querying that first and taking the username from there to make 
-        # the email search case-insensitive.
-        #
-        # There are accounts with case-variation of emails. To handle those,
-        # searching with the original case and using lower case if that fails.
-        email_doc = web.ctx.site.store.get("account-email/" + email) or web.ctx.site.store.get("account-email/" + email.lower())
-        doc = email_doc and web.ctx.site.store.get("account/" + email_doc['username'])
+        doc = query("email", email)
     else:
         doc = None
         

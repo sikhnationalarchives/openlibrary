@@ -2,9 +2,6 @@ $def with (list)
 
 $var title: $list.name
 
-$ page = safeint(query_param('page'), 1) - 1
-$ page_size = 50
-
 $jsdef render_seed_count(seed_count):
     $ msg = ungettext("%s seed", "%s seeds", seed_count)
     $:sprintf(msg, seed_count)
@@ -21,6 +18,11 @@ $jsdef render_seed_count(seed_count):
     </div> 
     <h1>
         $list.name 
+        <span class="sansserif small black">
+            <strong id="seed-count">Seeds</strong>
+            &nbsp;|&nbsp;
+            <a href="$list.url('/editions')">Activity</a>
+        </span>
     </h1>
     <p class="collapse sansserif">
         <span class="darkgreen"><strong>$:render_seed_count(len(list.seeds))</strong></span>
@@ -147,7 +149,7 @@ function get_seed_count() {
             $:format(list.description)
 
         <ul id="listResults" class="narrow">
-        $for seed in list.get_seeds(sort=True)[page*page_size:page*page_size+page_size]:
+        $for seed in list.get_seeds(sort=True):
             <li id="seed-$loop.index">
                 $ cover = seed.get_cover()
                 $ cover_url = cover and cover.url("M") or "/images/icons/avatar_book-sm.png"
@@ -157,34 +159,8 @@ function get_seed_count() {
                 <span class="seed-key hidden">$seed.key</span>
                 <span class="details"> 
                     <span class="resultTitle">
-                        $if seed.type in ['edition', 'work']:
-                            $ ebook = seed.document.get_ebook_info()
-                            $ doc = seed.document
-                            <!-- $:json_encode(ebook) -->
-                            <span class="actions" style="float: right;">
-                                $if 'read_url' in ebook:
-                                    <a href="$ebook['read_url']" title="$_('Open in online Book Reader. Downloads available in ePub, DAISY, PDF, TXT formats from main book page')">
-                                        <span class="image read"></span>
-                                        <span class="label">$_("Read")</span>
-                                    </a>
-                                $elif 'borrow_url' in ebook:
-                                    $if ebook.get('borrowed'):
-                                        <a href="$ebook['borrow_url']" title="This book is checked out">
-                                            <span class="image checked-out"></span>
-                                            <span class="label">Checked out</span>
-                                        </a>
-                                    $else:
-                                        <a href="$ebook['borrow_url']" title="Borrow book">
-                                            <span class="image borrow"></span>
-                                            <span class="label">Borrow</span>
-                                        </a>
-                                $elif 'daisy_url' in ebook:
-                                    <a href="$ebook['daisy_url']" title="Protected DAISY">
-                                        <span class="image daisy"></span>
-                                        <span class="label">DAISY</span>
-                                    </a>
-                            </span>
-
+                        $if ctx.user and ctx.user.key == list.get_owner().key:
+                            <span class="listDelete sansserif smaller"><a href="javascript:;"><span></span>Remove this seed?</a></span>
                         <h3> 
                             <a href="$seed.url" class="results">$seed.title</a>
                         </h3>
@@ -221,11 +197,7 @@ function get_seed_count() {
                             - $commify(seed.work_count) work$("s" if seed.work_count != 1 else "")$cond(seed.ebook_count, ",")
                             $if seed.ebook_count:
                                 $commify(seed.ebook_count) ebook$("s" if seed.ebook_count != 1 else "")
-                        </span>
-
-                        $if ctx.user and ctx.user.key == list.get_owner().key:
-                            <span class="listDelete sansserif smaller right"><a href="javascript:;"><span></span>Remove this seed?</a></span>
-
+                        </span> 
                         $if seed.last_update:
                             <span class="time">
                                 Last updated
@@ -264,26 +236,6 @@ function get_seed_count() {
     </div> 
  
     <div class="clearfix"></div> 
-
-    $:macros.Pager(page+1, len(list.seeds), page_size)
-
     
     $:render_template("lib/history", list)
 </div>
-
-<style type="text/css">
-ul#listResults span.actions span.image {
-    display: block;
-    height: 24px;
-    width: 24px;
-    margin: 0 auto;
-    float: none;
-}
-span.actions {
-    max-width: none;
-}
-ul#listResults span.actions a span.checked-out {
-    height: 32px;
-    width: 32px;
-}
-</style>

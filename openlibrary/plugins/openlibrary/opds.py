@@ -230,7 +230,7 @@ class OPDSEntry(OPDS):
             self.add_list(self.dcterms + 'language', lang.code)
     
         self.add_list(self.dcterms + 'identifier', book.key,     'https://openlibrary.org', {self.xsi+'type':'dcterms:URI'})
-        self.add_list(self.dcterms + 'identifier', book.ocaid,   'https://archive.org/details/', {self.xsi+'type':'dcterms:URI'})
+        self.add_list(self.dcterms + 'identifier', book.ocaid,   'http://canadiansikharchives.com/book.php?id=', {self.xsi+'type':'dcterms:URI'})
         self.add_list(self.dcterms + 'identifier', book.isbn_10, 'urn:ISBN:', {self.xsi+'type':'dcterms:ISBN'})
         self.add_list(self.dcterms + 'identifier', book.isbn_13, 'urn:ISBN:', {self.xsi+'type':'dcterms:ISBN'})
         self.add_list(self.bibo + 'oclcnum', book.oclc_numbers)

@@ -267,9 +267,6 @@ class cover:
                 value = None # notfound or redirect to default. handled later.
         elif key != 'id':
             value = self.query(category, key, value)
-
-        if value and safeint(value) in config.blocked_covers:
-            raise web.notfound()
             
         # redirect to archive.org cluster for large size and original images whenever possible
         if value and (size == "L" or size == "") and self.is_cover_in_cluster(value):
@@ -364,6 +361,7 @@ class cover:
         return _query(category, key, value)
         
     ratelimit_query = ratelimit.ratelimit()(query)
+
 
 @web.memoize
 def get_tar_index(tarindex, size):

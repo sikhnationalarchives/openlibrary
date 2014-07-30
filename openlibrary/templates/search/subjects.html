@@ -20,7 +20,7 @@ $if q:
     $if 'error' not in results:
         $ response = results['response']
         $ num_found = int(response['numFound'])
-        <p class="sansserif darkgreen collapse"><strong>$commify(response['numFound']) hit$("s" if response['numFound'] != 1 else "")</strong></p>
+        <p class="sansserif darkgreen collapse"><strong> $commify(response['numFound']) hit$("s" if response['numFound'] != 1 else "")</strong></p>
 </div>
     
 <div id="contentMeta">
@@ -85,7 +85,7 @@ $if q and 'error' not in results:
                     note = _('<span class="black">work</span>')
                 else:
                     note = doc['type']
-            <span class="count">&nbsp;&nbsp;<b>$commify(doc['count']) book$("s" if doc['count'] != 1 else "")</b>, $:note</span>
+            <!-- span class="count">&nbsp;&nbsp;<b>$commify(doc['count']) book$("s" if doc['count'] != 1 else "")</b>, $:note</span -->
         </li>
     </ul>
     $:macros.Pager(page, num_found, results_per_page)

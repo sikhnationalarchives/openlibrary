@@ -1,5 +1,5 @@
 Babel==0.9.6
-#PIL==1.1.7
+PIL==1.1.7
 argparse==1.2.1
 BeautifulSoup==3.2.0
 CouchDB==0.8
@@ -28,6 +28,7 @@ Jinja2==2.6
 amqplib==1.0.2
 anyjson==0.3.1
 docutils==0.8.1
+importlib==1.0.2
 kombu==1.5.1
 meld3==0.6.7
 ordereddict==1.1
@@ -35,4 +36,3 @@ py==1.4.5
 python-dateutil==1.5
 wsgiref==0.1.2
 mockcache==1.0.1
-sixpack-client==1.1.0

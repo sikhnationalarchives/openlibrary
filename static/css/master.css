@@ -847,6 +847,52 @@ div.verify span {background: url("/images/icons/icon_check.png") no-repeat;}
 
 /* HEADER */
 
+ul.tabs {
+	border-bottom:1px solid #ddd;
+	margin:60px 0 20px
+}
+.col-12 ul.tabs {
+	margin-bottom:0;
+	margin-top:-20px
+}
+ul.tabs li {
+	display:inline-block;
+	-webkit-border-radius:2px 2px 0 0;
+	-moz-border-radius:2px 2px 0 0;
+	border-radius:2px 2px 0 0;
+	border:1px solid #fcfcfc;
+	border-bottom:0
+}
+ul.tabs li a {
+	font-size:1.1rem;
+	font-weight:700;
+	text-transform:uppercase;
+	letter-spacing:1px;
+	padding:14px 20px 17px;
+	display:block;
+	color:#aaa;
+	margin-bottom:-1px;
+	text-align:center
+}
+ul.tabs li.ui-tabs-active,.col-12 ul.tabs li.ui-tabs-active {
+	border:1px solid #ddd;
+	border-bottom:0
+}
+ul.tabs li.ui-tabs-active a {
+	background-color:#fcfcfc;
+	color:#555
+}
+ul.tabs li a:hover {
+	color:#555
+}
+.col-12 ul.tabs li {
+	border:1px solid #fff;
+	border-bottom:0
+}
+.col-12 ul.tabs li.ui-tabs-active a {
+	background-color:#fff
+}
+
 div#headerNav {
     position: relative;
     float: left;
@@ -1244,12 +1290,12 @@ div.homeBlurb a {
 ul#olBlog {margin:0}
 ul#olBlog li {list-style-type: none;margin:1em 0;}
 
-.contentLists.results .coverMagic {position:relative;height:200px;margin:0;float:left;}
+.contentLists.results .coverMagic {position:relative;height:300px;margin:0;float:left;}
 .contentLists.results .coverMagic .coverEbook {position:absolute;bottom:5px;right:5px;width:32px;height:33px;cursor:pointer;z-index:1000;}
-.contentLists.results .SRPCover {float:left;height:200px;vertical-align:middle;}
-.contentLists.results .SRPCover img {max-height:200px;max-width:133px;}
-.contentLists.results .SRPCoverBlank {position:relative;width:115px;height:180px;padding:10px;text-align:center;float:left;background:#dedede;cursor:pointer;display:none;}
-.contentLists.results .SRPCoverBlank .innerBorder {float:left;width:113px;height:178px;border:1px solid #fff;}
+.contentLists.results .SRPCover {float:left;height:300px;vertical-align:middle;}
+.contentLists.results .SRPCover img {max-height:300px;max-width:200px;}
+.contentLists.results .SRPCoverBlank {position:relative;width:173px;height:270px;padding:10px;text-align:center;float:left;background:#dedede;cursor:pointer;display:none;}
+.contentLists.results .SRPCoverBlank .innerBorder {float:left;width:170px;height:260px;border:1px solid #fff;}
 .contentLists {margin-bottom:20px;}
 
 div#content div.contentLists {
@@ -1263,7 +1309,7 @@ div#content div.contentLists {
 /* HOME PAGE CAROUSEL SKIN */
 .resultsCovers {
     width: 958px;
-    height: 240px;
+    height: 340px;
 }
 .resultsCovers .jcarousel-container {
     width: 918px;
@@ -1271,12 +1317,12 @@ div#content div.contentLists {
 }
 .resultsCovers .jcarousel-clip {
     width: 918px;
-    height: 200px;
+    height: 300px;
 }
 .resultsCovers .jcarousel-list-horizontal {padding-left:0;}
 .resultsCovers .jcarousel-item-horizontal {
-    width: 153px;
-    height: 200px;
+    width: 230px;
+    height: 300px;
     margin-right: 0;
 }
 .resultsCovers h3 {
@@ -1305,9 +1351,9 @@ div#content div.contentLists {
     font-size: 14px;
 }
 .resultsCovers a {text-decoration: none;}
-ul.homeCarousel {list-style-type:none;height:200px;overflow:hidden;margin-left:0!important;margin-bottom:none!important;}
+ul.homeCarousel {list-style-type:none;height:300px;overflow:hidden;margin-left:0!important;margin-bottom:none!important;}
 ul.homeCarousel li {position:relative;float:left;list-style:none!important;}
-ul.homeCarousel .hiddenCoverMagic {width:100px;height:200px;}
+ul.homeCarousel .hiddenCoverMagic {width:150px;height:300px;}
 ul.homeCarousel .hiddenCoverMagic div, .hiddenCoverMagic a {display:none;}
 
 div.chartHome {float:left;width:160px;margin:0 29px 30px 0;text-align:center;}

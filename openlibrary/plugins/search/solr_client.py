@@ -18,9 +18,9 @@ php_location = "/petabox/setup.inc"
 # Solr search client; fancier version will have multiple persistent
 # connections, etc.
 
-solr_server_addr = ('pharosdb.us.archive.org', 8983)
-solr_server_addr = ('h02.us.archive.org', 8993)
-# solr_server_addr = ('127.0.0.1', 8983)
+#solr_server_addr = ('pharosdb.us.archive.org', 8983)
+#solr_server_addr = ('h02.us.archive.org', 8993)
+solr_server_addr = ('0.0.0.0', 8983)
 
 default_facet_list = ('has_fulltext', 
                       'authors',

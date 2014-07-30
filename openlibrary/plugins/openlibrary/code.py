@@ -30,7 +30,7 @@ import processors
 
 delegate.app.add_processor(processors.ReadableUrlProcessor())
 delegate.app.add_processor(processors.ProfileProcessor())
-delegate.app.add_processor(processors.CORSProcessor())
+
 
 try:
     from infogami.plugins.api import code as api
@@ -299,7 +299,7 @@ class flipbook(delegate.page):
         else:
             hash = ""
         
-        url = "http://www.archive.org/stream/%s%s" % (identifier, hash)
+        url = "http://canadiansikharchives.com/book.php?id=%s%s" % (identifier, hash)
         raise web.seeother(url)
 
 class bookreader(delegate.page):

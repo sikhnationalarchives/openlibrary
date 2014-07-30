@@ -16,17 +16,17 @@ import datetime
 import web
 from . import helpers as h
 from .sendmail import sendmail_with_template
-from . import db
 import logging
+from infogami.infobase.client import ClientException
 
 logger = logging.getLogger("openlibrary.waitinglist")
 
 class WaitingLoan(dict):
     def get_book(self):
-        return web.ctx.site.get(self['book_key'])
+        return web.ctx.site.get(self['book'])
 
     def get_user(self):
-        return web.ctx.site.get(self['user_key'])
+        return web.ctx.site.get(self['user'])
 
     def get_position(self):
         return self['position']
@@ -48,92 +48,21 @@ class WaitingLoan(dict):
             return max(0, delta_hours)
         return 0
 
-    def dict(self):
-        """Converts this object into JSON-able dict.
+def _query_values(name, value):
+    docs = web.ctx.site.store.values(type="waiting-loan", name=name, value=value, limit=1000)
+    return [WaitingLoan(doc) for doc in docs]
 
-        Converts all datetime objects into strings.
-        """
-        def process_value(v):
-            if isinstance(v, datetime.datetime):
-                v = v.isoformat()
-            return v
-        return dict((k, process_value(v)) for k, v in self.items())
-
-    @classmethod
-    def query(cls, **kw):
-        kw.setdefault('order', 'since')
-        # as of web.py 0.33, the version used by OL, 
-        # db.where doesn't work with no conditions
-        if len(kw) > 1: # if has more keys other than "order"
-            result = db.where("waitingloan", **kw)
-        else:
-            result = db.select('waitingloan')
-        return [cls(row) for row in result]
-
-    @classmethod
-    def new(cls, **kw):
-        id = db.insert('waitingloan', **kw)
-        result = db.where('waitingloan', id=id)
-        return cls(result[0])
-
-    @classmethod
-    def find(cls, user_key, book_key):
-        """Returns the waitingloan for given book_key and user_key.
-
-        Returns None if there is no such waiting loan.
-        """
-        result = cls.query(book_key=book_key, user_key=user_key)
-        if result:
-            return result[0]
-
-    @classmethod
-    def prune_expired(cls, book_key=None):
-        """Deletes the expired loans from database and returns WaitingLoan objects
-        for each deleted row.
-
-        If book_key is specified, it deletes only the expired waiting loans of that book.
-        """
-        where = ""
-        if book_key:
-            where += " AND book_key=$book_key"
-        rows = db.query(
-            "DELETE FROM waitingloan" +
-            " WHERE expiry IS NOT NULL AND expiry < CURRENT_TIMESTAMP " + where +
-            " RETURNING *", vars=locals())
-        return [cls(row) for row in rows]
-            
-    def delete(self):
-        """Delete this waiting loan from database.
-        """
-        db.delete("waitingloan", where="id=$id", vars=self)
-
-    def update(self, **kw):
-        db.update("waitingloan", where="id=$id", vars=self, **kw)
-        dict.update(self, kw)
-
-class Stats:
-    def get_popular_books(self, limit=10):
-        rows = db.query(
-            "select book_key, count(*) as count" +
-            " from waitingloan" +
-            " group by 1" +
-            " order by 2 desc" + 
-            " limit $limit", vars=locals()).list()
-        docs = web.ctx.site.get_many([row.book_key for row in rows])
-        docs_dict = dict((doc.key, doc) for doc in docs)
-        for row in rows:
-            row.book = docs_dict.get(row.book_key)
-        return rows
+def _query_keys(name, value):
+    return web.ctx.site.store.keys(type="waiting-loan", name=name, value=value, limit=1000)
 
 def get_waitinglist_for_book(book_key):
     """Returns the lost of  records for the users waiting for given book.
 
     This is admin-only feature. Works only if the current user is an admin.
     """
-    return WaitingLoan.query(book_key=book_key)
-    # wl = _query_values(name="book", value=book_key)
-    # # sort the waiting list by timestamp
-    # return sorted(wl, key=lambda doc: doc['since'])
+    wl = _query_values(name="book", value=book_key)
+    # sort the waiting list by timestamp
+    return sorted(wl, key=lambda doc: doc['since'])
 
 def get_waitinglist_size(book_key):
     """Returns size of the waiting list for given book.
@@ -146,23 +75,32 @@ def get_waitinglist_size(book_key):
 def get_waitinglist_for_user(user_key):
     """Returns the list of records for all the books that a user is waiting for.
     """
-    # return _query_values(name="user", value=user_key)
-    return WaitingLoan.query(user_key=user_key)
+    return _query_values(name="user", value=user_key)
 
 def is_user_waiting_for(user_key, book_key):
     """Returns True if the user is waiting for specified book.
     """
-    return WaitingLoan.find(user_key, book_key) is not None
-    # return get_waiting_loan_object(user_key, book_key) is not None
+    return get_waiting_loan_object(user_key, book_key) is not None
 
 def get_waiting_loan_object(user_key, book_key):
-    return WaitingLoan.find(user_key, book_key)
+    ukey = user_key.split("/")[-1]
+    bkey = book_key.split("/")[-1]
+    key = "waiting-loan-%s-%s" % (ukey, bkey)
+    doc = web.ctx.site.store.get(key)
+    if doc and doc['status'] != 'expired':
+        return WaitingLoan(doc)
 
 def get_waitinglist_position(user_key, book_key):
-    w = WaitingLoan.find(user_key, book_key)
-    if w:
-        return w['position']
-    else:
+    ukey = user_key.split("/")[-1]
+    bkey = book_key.split("/")[-1]
+    key = "waiting-loan-%s-%s" % (ukey, bkey)
+
+    wl = get_waitinglist_for_book(book_key)
+    keys = [doc['_key'] for doc in wl]
+    try:
+        # Adding one to start the position from 1 instead of 0
+        return keys.index(key) + 1
+    except ValueError:
         return -1
 
 def join_waitinglist(user_key, book_key):
@@ -170,16 +108,31 @@ def join_waitinglist(user_key, book_key):
 
     It is done by createing a new record in the store.
     """
-    WaitingLoan.new(user_key=user_key, book_key=book_key)
+    ukey = user_key.split("/")[-1]
+    bkey = book_key.split("/")[-1]
+    key = "waiting-loan-%s-%s" % (ukey, bkey)
+    timestamp = datetime.datetime.utcnow().isoformat()
+
+    d = {
+        "_key": key,
+        "type": "waiting-loan",
+        "user": user_key,
+        "book": book_key,
+        "status": "waiting",
+        "since": timestamp,
+        "last-update": timestamp,
+    }
+    web.ctx.site.store[key] = d
     update_waitinglist(book_key)
 
 def leave_waitinglist(user_key, book_key):
     """Removes the given user from the waiting list of the given book.
     """
-    w = WaitingLoan.find(user_key, book_key)
-    if w:
-        w.delete()
-        update_waitinglist(book_key)
+    ukey = user_key.split("/")[-1]
+    bkey = book_key.split("/")[-1]
+    key = "waiting-loan-%s-%s" % (ukey, bkey)
+    web.ctx.site.store.delete(key)
+    update_waitinglist(book_key)
 
 def update_waitinglist(book_key):
     """Updates the status of the waiting list.
@@ -196,51 +149,71 @@ def update_waitinglist(book_key):
     * When a person joins or leaves the waiting list
     """
     logger.info("BEGIN updating %r", book_key)
-    book = web.ctx.site.get(book_key)
+    wl = get_waitinglist_for_book(book_key)
     checkedout = _is_loaned_out(book_key)
-
-    if checkedout:
-        loans = book.get_loans()
-        # Delete from waiting list if a user has already borrowed this book        
-        for loan in loans:
-            w = WaitingLoan.find(loan['user'], book_key)
-            if w:
-                w.delete()
-
-    with db.transaction():
-        # delete expired any, if any before we start processing.
-        WaitingLoan.prune_expired(book_key=book_key)
-
-        # update the position and wl_size for all holds
-        wl = get_waitinglist_for_book(book_key)
-        for i, w in enumerate(wl):
-            w.update(position=i+1, wl_size=len(wl))
-
-        # Mark the first entry in the waiting-list as available if the book
-        # is not checked out.
-        if not checkedout and wl and wl[0]['status'] != 'available':
-            expiry = datetime.datetime.utcnow() + datetime.timedelta(days=1)
-            wl[0].update(status='available', expiry=expiry)
 
     ebook_key = "ebooks" + book_key
     ebook = web.ctx.site.store.get(ebook_key) or {}
+
+    documents = {}
+    def save_later(doc):
+        """Remembers to save on commit."""
+        documents[doc['_key']] = doc
+
+    def update_doc(doc, **kwargs):
+        dirty = False
+        for name, value in kwargs.items():
+            if doc.get(name) != value:
+                doc[name] = value
+                dirty = True
+        if dirty:
+            save_later(doc)
+
+    def commit():
+        """Saves all the documents """
+        try:
+            web.ctx.site.store.update(documents)
+        except ClientException, e:
+            logger.error("Failed to save documents.", exc_info=True)
+            logger.error("Error data: %r", e.get_data())
+
+    if checkedout:
+        book = web.ctx.site.get(book_key)
+        loans = book.get_loans()
+        
+        loaned_users = [loan['user'] for loan in loans]
+        for doc in wl[:]:
+            # Delete from waiting list if a user has already borrowed this book
+            if doc['user'] in loaned_users:
+                update_doc(doc, _delete=True)
+                wl.remove(doc)
+
+    for i, doc in enumerate(wl):
+        update_doc(doc, position=i+1, wl_size=len(wl))
+
+    # Mark the first entry in the waiting-list as available if the book
+    # is not checked out.
+    if not checkedout and wl:
+        # one day
+        expiry = datetime.datetime.utcnow() + datetime.timedelta(1)
+        update_doc(wl[0], status='available', expiry=expiry.isoformat())
 
     # for the end user, a book is not available if it is either
     # checked out or someone is waiting.
     not_available = bool(checkedout or wl)
 
     # update ebook document.
-    ebook2 =dict(ebook)
-    ebook2.update({
+    ebook.update({
         "_key": ebook_key,
         "type": "ebook",
         "book_key": book_key,
         "borrowed": str(not_available).lower(), # store as string "true" or "false"
         "wl_size": len(wl)
     })
-    if ebook != ebook2: # save if modified
-        web.ctx.site.store[ebook_key] = dict(ebook2, _rev=None) # force update
+    save_later(ebook)
+    commit()
 
+    book = web.ctx.site.get(book_key)
     if wl:
         # If some people are waiting and the book is checked out,
         # send email to the person who borrowed the book.
@@ -268,7 +241,8 @@ def sendmail_book_available(book):
         user = record.get_user()
         email = user and user.get_email()
         sendmail_with_template("email/waitinglist_book_available", to=email, user=user, book=book)
-        record.update(available_email_sent=True)
+        record['available_email_sent'] = True
+        web.ctx.site.store[record['_key']] = record
 
 def sendmail_people_waiting(book):
     """Send mail to the person who borrowed the book when the first person joins the waiting list.
@@ -319,18 +293,18 @@ def prune_expired_waitingloans():
     A waiting loan expires if the person fails to borrow a book with in 
     24 hours after his waiting loan becomes "available".
     """
-    expired = WaitingLoan.prune_expired()
+    records = web.ctx.site.store.values(type="waiting-loan", name="status", value="available", limit=-1)
+    now = datetime.datetime.utcnow().isoformat()
+    expired = [r for r in records if 'expiry' in r and r['expiry'] < now]
+    for r in expired:
+        logger.info("Deleting waiting loan for %r", r['book'])
+        # should mark record as expired instead of deleting
+        r['_delete'] = True
+    web.ctx.site.store.update(dict((r['_key'], r) for r in expired))
+
     # Update the checkedout status and position in the WL for each entry
     for r in expired:
-        update_waitinglist(r['book_key'])
-
-def update_all_waitinglists():
-    rows = db.query("SELECT distinct(book_key) from waitingloan")
-    for row in rows:
-        try:
-            update_waitinglist(row.book_key)
-        except Exception:
-            logger.error("failed to update waitinglist for %s", row.book_key, exc_info=True)
+        update_waitinglist(r['book'])
 
 def update_all_ebook_documents():
     """Updates the status of all ebook documents which are marked as checkedout.
@@ -339,41 +313,4 @@ def update_all_ebook_documents():
     """
     records = web.ctx.site.store.values(type="ebook", name="borrowed", value="true", limit=-1)
     for r in records:
-        try:
-            update_waitinglist(r['book_key'])
-        except Exception:
-            logger.error("failed to update %s", r['book_key'], exc_info=True)
-
-def sync_waitingloans():
-    """Syncs the waitingloans from store to db.
-    """
-    with db.transaction():
-        records = web.ctx.site.store.values(type="waiting-loan", limit=-1)
-        for r in records:
-            w = WaitingLoan.find(r['user'], r['book'])
-            if not w:
-                WaitingLoan.new(
-                    user_key=r['user'],
-                    book_key=r['book'],
-                    status=r['status'],
-                    position=r['position'],
-                    wl_size=r['wl_size'],
-                    since=r['since'],
-                    last_update=r['last-update'],
-                    expiry=r.get('expiry'),
-                    available_email_sent=r.get('available_email_sent', False))
-
-def verify_sync():
-    records = web.ctx.site.store.values(type="waiting-loan", limit=-1)
-    for r in records:
-        w = WaitingLoan.find(r['user'], r['book'])
-        if w is None:
-            print "MISSING", r['user'], r['book']
-        else:
-            def values(d, keys):
-                return [d.get(k) for k in keys]
-            keys = ['status', 'position', 'wl_size']
-            if values(w, ['user_key', 'book_key'] + keys) != values(r, ['user', 'book'] + keys):
-                print "MISMATCH", w, r
-                print values(w, ['user_key', 'book_key'] + keys)
-                print values(r, ['user', 'book'] + keys)
+        update_waitinglist(r['book_key'])

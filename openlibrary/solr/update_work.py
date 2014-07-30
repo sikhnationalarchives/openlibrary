@@ -13,7 +13,6 @@ from unicodedata import normalize
 from collections import defaultdict
 from openlibrary.utils.isbn import opposite_isbn
 from openlibrary.core import helpers as h
-from openlibrary.core import ia
 from infogami.infobase.client import ClientException
 import logging
 import datetime
@@ -785,14 +784,14 @@ def solr_update(requests, debug=False, index='works', commitWithin=None):
     for r in requests:
         if debug:
             logger.info('request: %r', r[:65] + '...' if len(r) > 65 else r)
-        assert isinstance(r, basestring)
+        # assert isinstance(r, basestring)
         h1.request('POST', url, r, { 'Content-type': 'text/xml;charset=utf-8'})
         response = h1.getresponse()
         response_body = response.read()
         if response.reason != 'OK':
             logger.error(response.reason)
             logger.error(response_body)
-        assert response.reason == 'OK'
+        # assert response.reason == 'OK'
         if debug:
             logger.info(response.reason)
     h1.close()
@@ -933,7 +932,8 @@ def process_work_data(work_data):
     return build_data2(
         work_data['work'], 
         work_data['editions'], 
-        work_data['authors'], 
+        work_data['authors'],
+        work_data['subjects'], 
         work_data['ia'], 
         work_data['duplicates'])
 
@@ -954,19 +954,14 @@ def update_edition(e):
     request_set = SolrRequestSet()
     request_set.delete(ekey)
 
-    redirect_keys = find_redirects(ekey)
+    q = {'type': '/type/redirect', 'location': ekey}
+    redirect_keys = [r['key'] for r in query_iter(q)]
     for k in redirect_keys:
         request_set.delete(k)
 
     doc = EditionBuilder(e, w, authors).build()
     request_set.add(doc)
     return request_set.get_requests()
-
-def find_redirects(key):
-    """Returns keys of all things which are redirected to this one.
-    """
-    q = {'type': '/type/redirect', 'location': key}
-    return [r['key'] for r in query_iter(q)]
 
 def get_subject(key):
     # This works only for single-core-solr
@@ -1039,9 +1034,8 @@ def update_work(w, obj_cache=None, debug=False, resolve_redirects=False):
     deletes = []
     requests = []
 
-    # q = {'type': '/type/redirect', 'location': wkey}
-    # redirect_keys = [r['key'][7:] for r in query_iter(q)]
-    redirect_keys = [k[7:] for k in find_redirects(wkey)]
+    q = {'type': '/type/redirect', 'location': wkey}
+    redirect_keys = [r['key'][7:] for r in query_iter(q)]
 
     deletes += redirect_keys
     deletes += [wkey[7:]] # strip /works/ from /works/OL1234W
@@ -1058,8 +1052,7 @@ def update_work(w, obj_cache=None, debug=False, resolve_redirects=False):
             'key': edition['key'].replace("/books/", "/works/"),
             'type': {'key': '/type/work'},
             'title': edition['title'],
-            'editions': [edition],
-            'authors': [{'type': '/type/author_role', 'author': {'key': a['key']}} for a in edition.get('authors', [])]
+            'editions': [edition]
         }
         # Hack to add subjects when indexing /books/ia:xxx
         if edition.get("subjects"):
@@ -1076,8 +1069,8 @@ def update_work(w, obj_cache=None, debug=False, resolve_redirects=False):
                 # Delete all ia:foobar keys
                 # XXX-Anand: The works in in_library subject were getting wiped off for unknown reasons.
                 # I suspect that this might be a cause. Disabling temporarily.
-                if d.get('ia'):
-                    deletes += ["ia:" + iaid for iaid in d['ia']]
+                #if d.get('ia'):
+                #    deletes += ["ia:" + iaid for iaid in d['ia']]
 
                 # In single core solr, we use full path as key, not just the last part
                 if is_single_core():
@@ -1194,6 +1187,7 @@ def get_document(key):
         try:
             logger.info("urlopen %s", url)
             contents = urlopen(url).read()
+            print >> sys.stdout, "%s" % contents
             return json.loads(contents)
         except urllib2.HTTPError, e:
             contents = e.read()
@@ -1229,15 +1223,8 @@ def update_keys(keys, commit=True):
     logger.info("BEGIN update_keys")
     wkeys = set()
 
-    # To delete the requested keys before updating
-    # This is required because when a redirect is found, the original
-    # key specified is never otherwise get deleted from solr.
-    deletes = []
-
     # Get works for all the editions
     ekeys = set(k for k in keys if k.startswith("/books/"))
-    if _monkeypatch:
-        _monkeypatch.preload_keys(ekeys)
     for k in ekeys:
         logger.info("processing edition %s", k)
         edition = get_document(k)
@@ -1246,17 +1233,16 @@ def update_keys(keys, commit=True):
             logger.warn("Found redirect to %s", edition['location'])
             edition = withKey(edition['location'])
 
-        # When the given key is not found or redirect to another edition/work, 
-        # explicitly delete the key. It won't get deleted otherwise.
-        if not edition or edition['key'] != k:
-            deletes.append(k)
-
         if not edition:
             logger.warn("No edition found for key %r. Ignoring...", k)
             continue
         elif edition['type']['key'] != '/type/edition':
             logger.info("%r is a document of type %r. Checking if any work has it as edition in solr...", k, edition['type']['key'])
-            wkey = solr_select_work(k)
+            wkey = None
+            try:
+                wkey = solr_select_work(k)
+            except:
+                logger.info("not found %r, updating it...", edition['type']['key'])
             if wkey:
                 logger.info("found %r, updating it...", wkey)
                 wkeys.add(wkey)
@@ -1273,17 +1259,12 @@ def update_keys(keys, commit=True):
             else:
                 # index the edition as it does not belong to any work
                 wkeys.add(k)
-
+        
     # Add work keys
     wkeys.update(k for k in keys if k.startswith("/works/"))
-
-    if not is_single_core():
-        # strip /books/ or /works/
-        deletes = [k.split("/")[-1] for k in deletes]
     
     # update works
     requests = []
-    requests += [make_delete_query(deletes)]
     for k in wkeys:
         logger.info("updating %s", k)
         try:
@@ -1348,7 +1329,6 @@ def parse_options(args=None):
     parser.add_option("-c", "--config", dest="config", default="openlibrary.yml", help="Open Library config file")
     parser.add_option("--nocommit", dest="nocommit", action="store_true", default=False, help="Don't commit to solr")
     parser.add_option("--monkeypatch", dest="monkeypatch", action="store_true", default=False, help="Monkeypatch query functions to access DB directly")
-    parser.add_option("--profile", dest="profile", action="store_true", default=False, help="Profile this code to identify the bottlenecks")
 
     options, args = parser.parse_args()
     return options, args
@@ -1376,254 +1356,25 @@ def new_query_iter(q, limit=500, offset=0):
             break
         q['offset'] += limit
 
-class MonkeyPatch:
-    """Utility to monkeypatch many of the functions used here with faster alternatives.
+def new_withKey(key):
+    """Alternative implementation of withKey, that talks to the database
+    directly instead of using the website API.
+
+    This is set to `withKey` when this script is called with --monkeypatch
+    option.
     """
-    def __init__(self):
-        self.cache = {}
-        self.redirect_cache = {}
-        self.ia_cache = {}
-        self.ia_redirect_cache = {}
+    logger.info("withKey %s", key)
+    return web.ctx.site._request('/get', data={'key': key})
 
-        from openlibrary.solr.process_stats import get_ia_db, get_db
-        self.db = get_db()
-        self.ia_db = get_ia_db()
-        self.count_withKey = 0
-
-    def monkeypatch(self):
-        global query_iter, withKey, get_document, get_ia_collection_and_box_id, find_redirects
-
-        query_iter = new_query_iter
-        get_document = self.get_document
-        withKey = self.withKey
-        get_ia_collection_and_box_id = self.get_ia_collection_and_box_id
-        ia.get_metadata = self.get_metadata
-        find_redirects = self.find_redirects
-
-    def withKey(self, key):
-        """Alternative implementation of withKey, that talks to the database
-        directly instead of using the website API.
-
-        This is set to `withKey` when this script is called with --monkeypatch
-        option.
-        """
-        logger.info("withKey %s", key)
-        if key not in self.cache:
-            self.cache[key] = self.withKey0(key)
-        return self.cache[key]
-
-    def withKey0(self, key):
-        logger.info("withKey0 %s", key)
-        if key.startswith("/books/ia:"):
-            itemid = key[len("/books/ia:"):]
-            self.preload_ia_redirect_cache([itemid])
-            redirect = self.ia_redirect_cache[itemid]
-            if redirect:
-                logger.info("withKey0 found redirect %s -> %s", key, redirect)
-                return self.withKey(redirect)
-
-            logger.info("withKey0 no redirect found %s", key)
-            metadata = self.get_metadata(itemid)
-            return ia.edition_from_item_metadata(itemid, metadata)
+def new_get_document(key):
+    try:
+        return new_withKey(key)
+    except ClientException, e:
+        if e.status.startswith('404'):
+            logger.warn("%s is not found, considering it as deleted.", key)
+            return {"key": key, "type": {"key": "/type/delete"}}
         else:
-            self.count_withKey += 1
-            logger.info("withKey0 infoabse request %s (%s)", key, self.count_withKey)
-            return web.ctx.site._request('/get', data={'key': key})
-
-    def get_document(self, key):
-        try:
-            return self.withKey(key)
-        except ClientException, e:
-            if e.status.startswith('404'):
-                logger.warn("%s is not found, considering it as deleted.", key)
-                return {"key": key, "type": {"key": "/type/delete"}}
-            else:
-                raise
-
-    def preload_keys(self, keys):
-        identifiers = [k.replace("/books/ia:", "") for k in keys if k.startswith("/books/ia:")]
-        self.preload_ia_items(identifiers)
-        re_key = web.re_compile("/(books|works|authors)/OL\d+[MWA]")
-
-        keys2 = set(k for k in keys if re_key.match(k))
-        keys2.update(k for k in self.ia_redirect_cache.values() if k is not None)
-        self.preload_keys0(keys2)
-        self._preload_works()
-        self._preload_authors()
-
-        keys3 = [k for k in self.cache if k.startswith("/works/") or k.startswith("/authors/")]
-        self.populate_redirect_cache(keys3)
-
-    def preload_keys0(self, keys):
-        keys = [k for k in keys if k not in self.cache]
-        if not keys:
-            return
-        # print "preload_keys0", keys            
-        for chunk in web.group(keys, 100):
-            docs = web.ctx.site.get_many(list(chunk))
-            for doc in docs:
-                self.cache[doc['key']] = doc.dict()
-
-    def _preload_works(self):
-        """Preloads works for all editions in the cache.
-        """
-        keys = []
-        for doc in self.cache.values():
-            # print "preload_works", doc['key'], doc
-            if doc and doc['type']['key'] == '/type/edition' and doc.get('works'):
-                print "success"
-                keys.append(doc['works'][0]['key'])
-        # print "preload_works, found keys", keys
-        self.preload_keys0(keys)
-
-    def _preload_authors(self):
-        """Preloads authors for all works in the cache.
-        """
-        keys = []
-        for doc in self.cache.values():
-            if doc and doc['type']['key'] == '/type/work' and doc.get('authors'):
-                keys.extend(a['author']['key'] for a in doc['authors'])
-        self.preload_keys0(list(set(keys)))
-
-    def get_metadata(self, itemid):
-        """Alternate implementation of ia.get_metadata() that uses IA db directly.
-        """
-        self.preload_ia_items([itemid])
-        if itemid in self.ia_cache:
-            d = web.storage(self.ia_cache[itemid])
-            d.publisher = d.publisher and d.publisher.split(";")
-            d.collection = d.collection and d.collection.split(";")
-            d.isbn = d.isbn and d.isbn.split(";")
-            d.creator = d.creator and d.creator.split(";")
-            return d
-
-    def get_ia_collection_and_box_id(self, itemid):
-        """Alternative implementation of get_ia_collection_and_box_id, that talks
-        to the archive.org database directly instead of using the metadata API.
-
-        This is set to `get_ia_collection_and_box_id` when this script is called 
-        with --monkeypatch option.
-        """    
-        metadata = self.get_metadata(itemid)
-        if metadata:
-            d = {'boxid': set()}
-            if metadata.boxid:
-                d['boxid'].add(metadata.boxid)
-            d['collection'] = set(metadata.collection)
-            return d
-
-    def find_redirects(self, key):
-        """Returns all the keys that are redirected to this.
-        """
-        self.populate_redirect_cache([key])
-        # print "find_redirects", key, self.redirect_cache[key]
-        return self.redirect_cache[key]
-
-    def populate_redirect_cache(self, keys):
-        # print "populate_redirect_cache", keys        
-        keys = [k for k in keys if k not in self.redirect_cache]
-        if not keys:
-            return
-
-        for chunk in web.group(keys, 100):
-            self.preload_redirect_cache0(list(chunk))
-
-    def preload_redirect_cache0(self, keys):
-        # print "preload_redirect_cache0", keys
-        query = {
-            "type": "/type/redirect", 
-            "location": keys,
-            "a:location": None # asking it to fill location in results
-        }
-        for k in keys:
-            self.redirect_cache.setdefault(k, [])
-
-        matches = web.ctx.site.things(query, details=True)
-        for thing in matches:
-            # we are trying to find documents that are redirecting to each of the given keys
-            self.redirect_cache[thing.location].append(thing.key)
-
-    def preload_ia_redirect_cache(self, identifiers):
-        # only consider the ones that are not already in the cache
-        identifiers = [id for id in identifiers if id not in self.ia_redirect_cache]
-        if not identifiers:
-            return
-        for chunk in web.group(identifiers, 100):
-            self.preload_ia_redirect_cache0(list(chunk))
-
-    def preload_ia_redirect_cache0(self, identifiers):
-        # print "preload_ia_redirect_cache", identifiers
-
-        # query by ocaid
-        query = {
-            "type": "/type/edition", 
-            "ocaid": identifiers,
-            "a:ocaid": None # asking it to fill ocaid in results
-        }
-        matches = web.ctx.site.things(query, details=True)
-        for thing in matches:
-            #self.cache[thing.key] = thing
-            self.ia_redirect_cache[thing.ocaid] = thing.key
-
-        # queery by source_records
-        query = {
-            "type": "/type/edition", 
-            "source_records": ["ia:" + x for x in identifiers], 
-            "a:source_records": None # asking it to fill source_records in results
-        }
-        matches = web.ctx.site.things(query, details=True)
-        # print matches
-        for thing in matches:
-            #self.cache[thing.key] = thing
-            for record in thing.source_records:
-                if record.startswith("ia:"):
-                    itemid = record[len("ia:"):]
-                    self.ia_redirect_cache[itemid] = thing.key
-
-        # set None in redirect_cache to indicate that there is no redirect
-        for itemid in identifiers:
-            self.ia_redirect_cache.setdefault(itemid, None)
-
-    def preload_ia_items(self, identifiers):
-        identifiers = [id for id in identifiers if id not in self.ia_cache]
-        if not identifiers:
-            return
-
-        # print "preload_ia_items", identifiers
-
-        fields = ('identifier, boxid, isbn, ' +
-                  'title, description, publisher, creator, ' +
-                  'date, collection, ' + 
-                  'repub_state, mediatype, noindex')
-
-        from openlibrary.solr.process_stats import get_ia_db
-        db = get_ia_db()
-        rows = db.select('metadata', 
-            what=fields, 
-            where='identifier IN $identifiers', 
-            vars=locals())
-        for row in rows:
-            self.ia_cache[row.identifier] = row
-
-        self.preload_ia_redirect_cache(identifiers)
-
-def new_get_metadata(itemid):
-    """Alternate implementation of ia.get_metadata() that uses IA db directly.
-    """
-    from openlibrary.solr.process_stats import get_ia_db
-    db = get_ia_db()
-    fields = 'identifier, boxid, collection, isbn, title, description, publisher, creator, date, collection'
-    rows = db.where('metadata', what=fields, identifier=itemid).list()
-    if not rows:
-        return {}
-    d = rows[0]
-    d.publisher = d.publisher and d.publisher.split(";")
-    d.collection = d.collection and d.collection.split(";")
-    d.isbn = d.isbn and d.isbn.split(";")
-    d.creator = d.creator and d.creator.split(";")
-    return d
-
-_monkeypatch = None
+            raise
 
 def monkeypatch(config_file):
     """Monkeypatch query functions to avoid hitting openlibrary.org.
@@ -1656,11 +1407,13 @@ def monkeypatch(config_file):
             path = os.path.join(dir, config.infobase_config_file)
             config.infobase = yaml.safe_load(open(path).read())
 
-    global _monkeypatch
+    global query_iter, withKey, get_document
+
     load_infogami(config_file)
 
-    _monkeypatch = MonkeyPatch()
-    _monkeypatch.monkeypatch()
+    query_iter = new_query_iter
+    withKey = new_withKey
+    get_document = new_get_document
 
 def main():
     options, keys = parse_options()
@@ -1676,13 +1429,7 @@ def main():
     config.load(options.config)
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-
-    if options.profile:
-        f = web.profile(update_keys)
-        _, info = f(keys, not options.nocommit)
-        print info
-    else:
-        update_keys(keys, commit=not options.nocommit)
+    update_keys(keys, commit=not options.nocommit)
 
 if __name__ == '__main__':
     main()

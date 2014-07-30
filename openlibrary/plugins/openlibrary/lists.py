@@ -207,10 +207,6 @@ class list_view_json(delegate.page):
         list = web.ctx.site.get(key)
         if not list or list.type.key == '/type/delete':
             raise web.notfound()
-
-        i = web.input()
-        if i.get("_raw") == "true":
-            return delegate.RawText(self.dumps(list.dict()))
         
         data = self.get_list_data(list)
         return delegate.RawText(self.dumps(data))
@@ -508,12 +504,9 @@ def get_recently_modified_lists(limit, offset=0):
     keys = web.ctx.site.things({"type": "/type/list", "sort": "-last_modified", "limit": limit, "offset": offset})
     lists = web.ctx.site.get_many(keys)
     
-    # XXX-Anand, March 2014: This is not required any more. We switched to using solr
-    # instead of relying on this data from couch.
-    #
     # Cache seed_summary, so that it can be reused later without recomputing.
-    #for list in lists:
-    #    list.seed_summary_cached = list.seed_summary
+    for list in lists:
+        list.seed_summary_cached = list.seed_summary
         
     return [list.dict() for list in lists]
     

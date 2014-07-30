@@ -513,9 +513,7 @@ class Work(models.Work):
         else:
             key = self.get_olid()
 
-        fields = [
-            "cover_edition_key", "cover_id", "edition_key", "first_publish_year",
-            "has_fulltext", "lending_edition", "checked_out", "public_scan_b", "ia"]
+        fields = ["cover_edition_key", "cover_id", "edition_key", "first_publish_year"]
         
         solr = get_works_solr()
         stats.begin("solr", query={"key": key}, fields=fields)

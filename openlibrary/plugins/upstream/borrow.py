@@ -25,7 +25,6 @@ from openlibrary.core import stats
 from openlibrary.core import msgbroker
 from openlibrary.core import waitinglist
 from openlibrary import accounts
-from openlibrary.core import ab
 
 from lxml import etree
 
@@ -100,8 +99,7 @@ class borrow(delegate.page):
             have_returned = True
         else:
             have_returned = False
-
-        ab.participate("borrow-layout")
+        
         return render_template("borrow", edition, loans, have_returned)
         
     def POST(self, key):
@@ -128,9 +126,6 @@ class borrow(delegate.page):
             
             if resource_type not in ['epub', 'pdf', 'bookreader']:
                 raise web.seeother(error_redirect)
-
-            if resource_type == 'bookreader':
-                ab.convert("borrow-layout")
             
             if user_can_borrow_edition(user, edition, resource_type):
                 loan = Loan(user.key, key, resource_type)
@@ -329,56 +324,7 @@ class borrow_admin_no_update(delegate.page):
             
         raise web.seeother(web.ctx.path) # $$$ why doesn't this redirect to borrow_admin_no_update?
 
-class ia_loan_status(delegate.page):
-    path = r"/ia_loan_status/(.*)"
-
-    def GET(self, itemid):
-        d = get_borrow_status(itemid, include_resources=False, include_ia=False)
-        return delegate.RawText(simplejson.dumps(d), content_type="application/json")
-
-@public
-def get_borrow_status(itemid, include_resources=True, include_ia=True):
-    """Returns borrow status for each of the sources and formats.
-    """
-    loan = web.ctx.site.store.get("loan-" + itemid)
-    has_loan = bool(loan)
-
-    edition_keys = web.ctx.site.things({"type": "/type/edition", "ocaid": itemid})
-    editions = web.ctx.site.get_many(edition_keys)
-    has_waitinglist = editions and any(e.get_waitinglist_size() > 0 for e in editions)
-
-    d = {
-        'identifier': itemid,
-        'checkedout': has_loan or has_waitinglist,
-        'has_loan': has_loan,
-        'has_waitinglist': has_waitinglist,
-    }
-    if include_ia:
-        ia_checkedout = is_loaned_out_on_ia(itemid)
-        d['checkedout'] = d['checkedout'] or ia_checkedout
-        d['checkedout_on_ia'] = ia_checkedout
-
-    if include_resources:
-        d.update({
-            'resource_bookreader': 'absent',
-            'resource_pdf': 'absent',
-            'resource_epub': 'absent',
-        })
-        if editions:
-            resources = editions[0].get_lending_resources()
-            resource_pattern = r'acs:(\w+):(.*)'
-            for resource_urn in resources:
-                if resource_urn.startswith('acs:'):
-                    (resource_type, resource_id) = re.match(resource_pattern, resource_urn).groups()
-                else:
-                    resource_type, resource_id = "bookreader", resource_urn
-                resource_type = "resource_" + resource_type
-                if is_loaned_out(resource_id):
-                    d[resource_type] = 'checkedout'
-                else:
-                    d[resource_type] = 'available'
-    return web.storage(d)
-
+        
 # Handler for /iauth/{itemid}
 class ia_auth(delegate.page):
     path = r"/ia_auth/(.*)"
@@ -634,14 +580,14 @@ def get_all_loaned_out():
         raise Exception('Loan status server not available')
 
 def is_loaned_out(resource_id):
+
     # bookreader loan status is stored in the private data store
     if resource_id.startswith('bookreader'):
         # Check our local status
         loan_key = get_loan_key(resource_id)
         if not loan_key:
             # No loan recorded
-            identifier = resource_id[len('bookreader:'):]
-            return is_loaned_out_on_ia(identifier)
+            return False
 
         # Find the loan and check if it has expired
         loan = web.ctx.site.store.get(loan_key)
@@ -654,11 +600,6 @@ def is_loaned_out(resource_id):
     # Assume ACS4 loan - check status server
     status = get_loan_status(resource_id)
     return is_loaned_out_from_status(status)
-
-def is_loaned_out_on_ia(identifier):
-    url = "https://archive.org/services/borrow/%s?action=status" % identifier
-    response = simplejson.loads(urllib2.urlopen(url).read())
-    return response and response.get('checkedout')
     
 def is_loaned_out_from_status(status):
     if not status:

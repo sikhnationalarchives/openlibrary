@@ -1,0 +1,1661 @@
+2014-02-19 08:56:12 [781] [INFO] Starting gunicorn 0.13.4
+2014-02-19 08:56:12 [781] [INFO] Listening at: http://0.0.0.0:8080 (781)
+2014-02-19 08:56:12 [781] [INFO] Using worker: sync
+2014-02-19 08:56:12 [784] [INFO] Booting worker with pid: 784
+2014-02-19 08:56:12 [785] [INFO] Booting worker with pid: 785
+2014-02-19 08:56:12 [786] [INFO] Booting worker with pid: 786
+2014-02-19 08:56:12 [787] [INFO] Booting worker with pid: 787
+2014-02-19 08:56:12 [openlibrary] [INFO] Application init
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin openlibrary
+2014-02-19 08:56:12 [openlibrary] [INFO] Application init
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin openlibrary
+2014-02-19 08:56:12 [openlibrary] [INFO] Application init
+2014-02-19 08:56:12 [openlibrary] [INFO] Application init
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin openlibrary
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin openlibrary
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin search
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin search
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin search
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin search
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin worksearch
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin worksearch
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin worksearch
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin worksearch
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin books
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin books
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin books
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin books
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin admin
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin admin
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin admin
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin admin
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin upstream
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin upstream
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin upstream
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin upstream
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin importapi
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin importapi
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin importapi
+2014-02-19 08:56:12 [openlibrary] [INFO] loading plugin importapi
+2014-02-19 08:56:13 [openlibrary] [INFO] loading complete.
+2014-02-19 08:56:13 [openlibrary] [INFO] loading complete.
+2014-02-19 08:56:13 [openlibrary] [INFO] loading complete.
+2014-02-19 08:56:13 [openlibrary] [INFO] loading complete.
+2014-02-19 08:56:13 [infobase] [INFO] loading plugin openlibrary.olbase
+2014-02-19 08:56:13 [infobase] [INFO] loading plugin openlibrary.olbase
+2014-02-19 08:56:13 [infobase] [INFO] loading plugin openlibrary.olbase
+2014-02-19 08:56:13 [infobase] [INFO] loading plugin openlibrary.olbase
+0.04 (1): SELECT * FROM thing LIMIT 10.04 (1): SELECT * FROM thing LIMIT 10.04 (1): SELECT * FROM thing LIMIT 1
+
+
+0.04 (1): SELECT * FROM thing LIMIT 1
+0.01 (1): SELECT * FROM thing WHERE key='/type/type'
+0.01 (1): SELECT * FROM thing WHERE key='/type/type'
+0.01 (1): SELECT * FROM thing WHERE key='/type/type'
+0.01 (1): SELECT * FROM thing WHERE key='/type/type'
+0.0 (1): SELECT * FROM thing WHERE key='/type/type'
+0.0 (1): SELECT * FROM thing WHERE key='/type/type'
+0.0 (1): SELECT * FROM thing WHERE key='/type/type'
+0.0 (1): SELECT * FROM thing WHERE key='/type/type'
+2014-02-19 08:56:13 [infobase.ol] [INFO] logging initialized
+2014-02-19 08:56:13 [infobase.ol] [DEBUG] debug
+2014-02-19 08:56:13 [infobase.ol] [INFO] logging initialized
+2014-02-19 08:56:13 [openlibrary.olbase] [INFO] setting up infobase events for Open Library
+2014-02-19 08:56:13 [infobase.ol] [DEBUG] debug
+2014-02-19 08:56:13 [openlibrary.olbase] [INFO] setting up infobase events for Open Library
+2014-02-19 08:56:13 [infobase.ol] [INFO] logging initialized
+2014-02-19 08:56:13 [infobase.ol] [DEBUG] debug
+2014-02-19 08:56:13 [openlibrary.olbase] [INFO] setting up infobase events for Open Library
+2014-02-19 08:56:13 [infobase.ol] [INFO] logging initialized
+2014-02-19 08:56:13 [infobase.ol] [DEBUG] debug
+2014-02-19 08:56:13 [openlibrary.olbase] [INFO] setting up infobase events for Open Library
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+2014-02-19 08:56:14 [openlibrary.home] [ERROR] Error in getting stats
+Traceback (most recent call last):
+  File "/home/vagrant/openlibrary/openlibrary/plugins/openlibrary/home.py", line 27, in GET
+    stats = admin.get_stats()
+  File "/home/vagrant/openlibrary/openlibrary/core/admin.py", line 81, in get_stats
+    docs = [couchdb.Document(doc) for doc in _get_count_docs(ndays)]
+  File "/home/vagrant/openlibrary/openlibrary/core/cache.py", line 442, in func
+    value = f(*args, **kwargs)
+  File "/home/vagrant/openlibrary/openlibrary/core/admin.py", line 75, in _get_count_docs
+    include_docs = True)]
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 984, in __iter__
+    return iter(self.rows)
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 1003, in rows
+    self._fetch()
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 990, in _fetch
+    data = self.view._exec(self.options)
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 880, in _exec
+    _, _, data = self.resource.get_json(**self._encode_options(options))
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 393, in get_json
+    status, headers, data = self.get(*a, **k)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 374, in get
+    return self._request('GET', path, headers=headers, **params)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 419, in _request
+    credentials=self.credentials)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 239, in request
+    resp = _try_request_with_retries(iter(self.retry_delays))
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 205, in _try_request_with_retries
+    raise e
+error: [Errno 111] Connection refused
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+2014-02-19 08:56:14 [openlibrary] [ERROR] Failed to fetch blog feeds
+Traceback (most recent call last):
+  File "/home/vagrant/openlibrary/openlibrary/plugins/upstream/utils.py", line 597, in _get_blog_feeds
+    tree = etree.parse(urllib.urlopen(url))
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1183, in parse
+    tree.parse(source, parser)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 656, in parse
+    parser.feed(data)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1643, in feed
+    self._raiseerror(v)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1507, in _raiseerror
+    raise err
+ParseError: not well-formed (invalid token): line 1, column 0
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+0.0 (1): SELECT * FROM thing WHERE key='/type/library'
+0.01 (1): SELECT data FROM data WHERE thing_id=36 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/type/text'
+0.0 (1): SELECT data FROM data WHERE thing_id=4 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/type/property'
+0.0 (1): SELECT data FROM data WHERE thing_id=9 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/type/string'
+0.0 (1): SELECT data FROM data WHERE thing_id=3 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/type/library'
+0.0 (1): SELECT * FROM property
+0.0 (1): SELECT * FROM thing WHERE id IN (1, 41, 11, 12, 13, 14, 50, 46, 56, 57, 31)
+0.0 (1): SELECT id FROM thing WHERE key='/type/library'
+0.0 (1): SELECT * FROM property WHERE type=36 AND name='status'
+2014-02-19 08:56:15 [infobase.cache] [DEBUG] MemcachedDict.update: ['/type/string', '/type/text', '/type/library', '/type/property']
+Error Opening file var/cache/GeoLiteCity.dat
+0.01 (1): SELECT store.key FROM store, store_index WHERE store.id=store_index.store_id AND type='account' AND name='bot' and value='true'
+0.0 (1): SELECT t.* FROM transaction t WHERE 1 = 1 AND (t.author_id NOT in (-1) OR t.author_id IS NULL) ORDER BY t.created DESC LIMIT 100 OFFSET 0
+0.0 (1): SELECT id, key FROM thing WHERE id in (524)
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/type/edition'
+0.0 (1): SELECT data FROM data WHERE thing_id=31 AND revision=1
+loading GeoIP file failed
+2014-02-19 08:56:15 [infobase.cache] [DEBUG] MemcachedDict.update: ['/type/edition']
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL54M'
+0.0 (1): SELECT data FROM data WHERE thing_id=783 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL53M'
+0.0 (1): SELECT data FROM data WHERE thing_id=781 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL48M'
+0.0 (1): SELECT data FROM data WHERE thing_id=768 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL51M'
+0.0 (1): SELECT data FROM data WHERE thing_id=776 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/people/openlibrary'
+0.0 (1): SELECT data FROM data WHERE thing_id=524 AND revision=1
+2014-02-19 08:56:15 [infobase.cache] [DEBUG] MemcachedDict.update: ['/people/openlibrary']
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL43W'
+0.0 (1): SELECT data FROM data WHERE thing_id=782 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL42W'
+0.0 (1): SELECT data FROM data WHERE thing_id=780 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL40W'
+0.0 (1): SELECT data FROM data WHERE thing_id=775 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL37W'
+0.0 (1): SELECT data FROM data WHERE thing_id=767 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL43M'
+0.0 (1): SELECT data FROM data WHERE thing_id=753 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL47M'
+0.0 (1): SELECT data FROM data WHERE thing_id=765 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL45M'
+0.0 (1): SELECT data FROM data WHERE thing_id=759 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL44M'
+0.0 (1): SELECT data FROM data WHERE thing_id=756 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL42M'
+0.0 (1): SELECT data FROM data WHERE thing_id=750 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL40M'
+0.0 (1): SELECT data FROM data WHERE thing_id=744 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL39M'
+0.0 (1): SELECT data FROM data WHERE thing_id=741 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL38M'
+0.0 (1): SELECT data FROM data WHERE thing_id=738 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL21W'
+0.0 (1): SELECT data FROM data WHERE thing_id=719 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL22A'
+0.0 (1): SELECT data FROM data WHERE thing_id=717 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL20W'
+0.0 (1): SELECT data FROM data WHERE thing_id=715 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL9M'
+0.0 (1): SELECT data FROM data WHERE thing_id=558 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL15M'
+0.0 (1): SELECT data FROM data WHERE thing_id=674 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL8M'
+0.0 (1): SELECT data FROM data WHERE thing_id=555 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL19W'
+0.0 (1): SELECT data FROM data WHERE thing_id=713 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL24982896M'
+0.0 (1): SELECT data FROM data WHERE thing_id=561 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL73243W'
+0.0 (1): SELECT data FROM data WHERE thing_id=595 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL5820529M'
+0.0 (1): SELECT data FROM data WHERE thing_id=614 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/theme/files'
+0.0 (1): SELECT data FROM data WHERE thing_id=708 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/about'
+0.0 (1): SELECT data FROM data WHERE thing_id=707 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL14W'
+0.0 (1): SELECT data FROM data WHERE thing_id=697 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL19A'
+0.0 (1): SELECT data FROM data WHERE thing_id=702 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL28M'
+0.0 (1): SELECT data FROM data WHERE thing_id=706 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL27M'
+0.0 (1): SELECT data FROM data WHERE thing_id=704 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL18A'
+0.0 (1): SELECT data FROM data WHERE thing_id=701 AND revision=1
+2014-02-19 08:57:25 [785] [ERROR] Error handling request
+Traceback (most recent call last):
+  File "/usr/lib/pymodules/python2.7/gunicorn/workers/sync.py", line 70, in handle
+    req = parser.next()
+  File "/usr/lib/pymodules/python2.7/gunicorn/http/parser.py", line 33, in next
+    self.mesg = self.mesg_class(self.unreader)
+  File "/usr/lib/pymodules/python2.7/gunicorn/http/message.py", line 112, in __init__
+    super(Request, self).__init__(unreader)
+  File "/usr/lib/pymodules/python2.7/gunicorn/http/message.py", line 28, in __init__
+    unused = self.parse(self.unreader)
+  File "/usr/lib/pymodules/python2.7/gunicorn/http/message.py", line 131, in parse
+    self.get_data(unreader, buf)
+  File "/usr/lib/pymodules/python2.7/gunicorn/http/message.py", line 120, in get_data
+    raise NoMoreData(buf.getvalue())
+NoMoreData: No more data after: '\x16\x03\x01\x00\xbf\x01\x00\x00\xbb\x03\x01S\x049\x83\x87\x99K\xf8\x8c|\xbd\xe4\xce\x19*\xa2.f\xcag\xe6\xf3\xd7\x05\xaaI\x8d\xae\xee\xa2X[\x00\x00$\xc0\x07\xc0\x11\xc0\t\xc0\x13\xc0\n\xc0\x14\x00\x05\x00\x04\x00/\x00\n\x005\x003\x002\x00\x16\x00\x13\x009\x008\x00\xff\x01\x00\x00n\x00\x00\x00\x1d\x00\x1b\x00\x00\x18sikhnationalarchives.com\x00\x0b\x00\x04\x03\x00\x01\x02\x00\n\x004\x002\x00\x0e\x00\r\x00\x19\x00\x0b\x00\x0c\x00\x18\x00\t\x00\n\x00\x16\x00\x17\x00\x08\x00\x06\x00\x07\x00\x14\x00\x15\x00\x04\x00\x05\x00\x12\x00\x13\x00\x01\x00\x02\x00\x03\x00\x0f\x00\x10\x00\x11\x00#\x00\x00\x00\x0f\x00\x01\x013t\x00\x00'
+2014-02-19 08:58:15 [787] [ERROR] Error handling request
+Traceback (most recent call last):
+  File "/usr/lib/pymodules/python2.7/gunicorn/workers/sync.py", line 70, in handle
+    req = parser.next()
+  File "/usr/lib/pymodules/python2.7/gunicorn/http/parser.py", line 33, in next
+    self.mesg = self.mesg_class(self.unreader)
+  File "/usr/lib/pymodules/python2.7/gunicorn/http/message.py", line 112, in __init__
+    super(Request, self).__init__(unreader)
+  File "/usr/lib/pymodules/python2.7/gunicorn/http/message.py", line 28, in __init__
+    unused = self.parse(self.unreader)
+  File "/usr/lib/pymodules/python2.7/gunicorn/http/message.py", line 131, in parse
+    self.get_data(unreader, buf)
+  File "/usr/lib/pymodules/python2.7/gunicorn/http/message.py", line 120, in get_data
+    raise NoMoreData(buf.getvalue())
+NoMoreData: No more data after: '\x16\x03\x01\x00\xbf\x01\x00\x00\xbb\x03\x01S\x049\xb5\x0b`\x91P[Yk"\xbe\xfc\x8ab\xb5\x91"\xb3\xfblK\xd8\xe1\xf5\x94\x84^\xb5\xae\xe9\x00\x00$\xc0\x07\xc0\x11\xc0\t\xc0\x13\xc0\n\xc0\x14\x00\x05\x00\x04\x00/\x00\n\x005\x003\x002\x00\x16\x00\x13\x009\x008\x00\xff\x01\x00\x00n\x00\x00\x00\x1d\x00\x1b\x00\x00\x18sikhnationalarchives.com\x00\x0b\x00\x04\x03\x00\x01\x02\x00\n\x004\x002\x00\x0e\x00\r\x00\x19\x00\x0b\x00\x0c\x00\x18\x00\t\x00\n\x00\x16\x00\x17\x00\x08\x00\x06\x00\x07\x00\x14\x00\x15\x00\x04\x00\x05\x00\x12\x00\x13\x00\x01\x00\x02\x00\x03\x00\x0f\x00\x10\x00\x11\x00#\x00\x00\x00\x0f\x00\x01\x013t\x00\x00'
+2014-02-19 09:03:18 [784] [INFO] Worker exiting (pid: 784)
+2014-02-19 09:03:18 [787] [INFO] Worker exiting (pid: 787)
+2014-02-19 09:03:18 [785] [INFO] Worker exiting (pid: 785)
+2014-02-19 09:03:18 [786] [INFO] Worker exiting (pid: 786)
+2014-02-19 09:03:18 [781] [INFO] Handling signal: term
+2014-02-19 09:03:18 [781] [INFO] Shutting down: Master
+2014-02-19 09:07:06 [783] [INFO] Starting gunicorn 0.13.4
+2014-02-19 09:07:06 [783] [INFO] Listening at: http://0.0.0.0:8080 (783)
+2014-02-19 09:07:06 [783] [INFO] Using worker: sync
+2014-02-19 09:07:06 [786] [INFO] Booting worker with pid: 786
+2014-02-19 09:07:06 [787] [INFO] Booting worker with pid: 787
+2014-02-19 09:07:06 [788] [INFO] Booting worker with pid: 788
+2014-02-19 09:07:06 [789] [INFO] Booting worker with pid: 789
+2014-02-19 09:07:06 [openlibrary] [INFO] Application init
+2014-02-19 09:07:06 [openlibrary] [INFO] Application init
+2014-02-19 09:07:06 [openlibrary] [INFO] loading plugin openlibrary
+2014-02-19 09:07:06 [openlibrary] [INFO] loading plugin openlibrary
+2014-02-19 09:07:06 [openlibrary] [INFO] Application init
+2014-02-19 09:07:06 [openlibrary] [INFO] loading plugin openlibrary
+2014-02-19 09:07:06 [openlibrary] [INFO] Application init
+2014-02-19 09:07:06 [openlibrary] [INFO] loading plugin openlibrary
+2014-02-19 09:07:06 [openlibrary] [INFO] loading plugin search
+2014-02-19 09:07:06 [openlibrary] [INFO] loading plugin search
+2014-02-19 09:07:06 [openlibrary] [INFO] loading plugin search
+2014-02-19 09:07:06 [openlibrary] [INFO] loading plugin search
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin worksearch
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin worksearch
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin worksearch
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin worksearch
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin books
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin books
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin books
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin books
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin admin
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin admin
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin admin
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin admin
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin upstream
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin upstream
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin upstream
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin upstream
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin importapi
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin importapi
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin importapi
+2014-02-19 09:07:07 [openlibrary] [INFO] loading plugin importapi
+2014-02-19 09:07:07 [openlibrary] [INFO] loading complete.
+2014-02-19 09:07:07 [openlibrary] [INFO] loading complete.
+2014-02-19 09:07:07 [openlibrary] [INFO] loading complete.
+2014-02-19 09:07:07 [openlibrary] [INFO] loading complete.
+2014-02-19 09:07:07 [infobase] [INFO] loading plugin openlibrary.olbase
+2014-02-19 09:07:07 [infobase] [INFO] loading plugin openlibrary.olbase
+2014-02-19 09:07:07 [infobase] [INFO] loading plugin openlibrary.olbase
+2014-02-19 09:07:07 [infobase] [INFO] loading plugin openlibrary.olbase
+0.04 (1): SELECT * FROM thing LIMIT 10.04 (1): SELECT * FROM thing LIMIT 10.04 (1): SELECT * FROM thing LIMIT 1
+
+
+0.04 (1): SELECT * FROM thing LIMIT 1
+0.01 (1): SELECT * FROM thing WHERE key='/type/type'0.01 (1): SELECT * FROM thing WHERE key='/type/type'
+
+0.01 (1): SELECT * FROM thing WHERE key='/type/type'
+0.01 (1): SELECT * FROM thing WHERE key='/type/type'
+0.0 (1): SELECT * FROM thing WHERE key='/type/type'0.0 (1): SELECT * FROM thing WHERE key='/type/type'
+
+0.0 (1): SELECT * FROM thing WHERE key='/type/type'
+0.0 (1): SELECT * FROM thing WHERE key='/type/type'
+2014-02-19 09:07:07 [infobase.ol] [INFO] logging initialized
+2014-02-19 09:07:07 [infobase.ol] [DEBUG] debug
+2014-02-19 09:07:07 [openlibrary.olbase] [INFO] setting up infobase events for Open Library
+2014-02-19 09:07:07 [infobase.ol] [INFO] logging initialized
+2014-02-19 09:07:07 [infobase.ol] [DEBUG] debug
+2014-02-19 09:07:07 [openlibrary.olbase] [INFO] setting up infobase events for Open Library
+2014-02-19 09:07:07 [infobase.ol] [INFO] logging initialized
+2014-02-19 09:07:07 [infobase.ol] [DEBUG] debug
+2014-02-19 09:07:07 [openlibrary.olbase] [INFO] setting up infobase events for Open Library
+2014-02-19 09:07:07 [infobase.ol] [INFO] logging initialized
+2014-02-19 09:07:07 [infobase.ol] [DEBUG] debug
+2014-02-19 09:07:07 [openlibrary.olbase] [INFO] setting up infobase events for Open Library
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+2014-02-19 09:07:18 [openlibrary.home] [ERROR] Error in getting stats
+Traceback (most recent call last):
+  File "/home/vagrant/openlibrary/openlibrary/plugins/openlibrary/home.py", line 27, in GET
+    stats = admin.get_stats()
+  File "/home/vagrant/openlibrary/openlibrary/core/admin.py", line 81, in get_stats
+    docs = [couchdb.Document(doc) for doc in _get_count_docs(ndays)]
+  File "/home/vagrant/openlibrary/openlibrary/core/cache.py", line 442, in func
+    value = f(*args, **kwargs)
+  File "/home/vagrant/openlibrary/openlibrary/core/admin.py", line 75, in _get_count_docs
+    include_docs = True)]
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 984, in __iter__
+    return iter(self.rows)
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 1003, in rows
+    self._fetch()
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 990, in _fetch
+    data = self.view._exec(self.options)
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 880, in _exec
+    _, _, data = self.resource.get_json(**self._encode_options(options))
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 393, in get_json
+    status, headers, data = self.get(*a, **k)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 374, in get
+    return self._request('GET', path, headers=headers, **params)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 419, in _request
+    credentials=self.credentials)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 239, in request
+    resp = _try_request_with_retries(iter(self.retry_delays))
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 205, in _try_request_with_retries
+    raise e
+error: [Errno 111] Connection refused
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+/home/vagrant/openlibrary/openlibrary/plugins/upstream/utils.py:612: FutureWarning: This search is broken in 1.3 and earlier, and will be fixed in a future version.  If you rely on the current behaviour, change it to './/item'
+  return [parse_item(item) for item in tree.findall("//item")]
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+0.0 (1): SELECT * FROM thing WHERE key='/type/library'
+0.01 (1): SELECT data FROM data WHERE thing_id=36 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/type/text'
+0.0 (1): SELECT data FROM data WHERE thing_id=4 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/type/property'
+0.0 (1): SELECT data FROM data WHERE thing_id=9 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/type/string'
+0.0 (1): SELECT data FROM data WHERE thing_id=3 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/type/library'
+0.0 (1): SELECT * FROM property
+0.0 (1): SELECT * FROM thing WHERE id IN (1, 41, 11, 12, 13, 14, 50, 46, 56, 57, 31)
+0.0 (1): SELECT id FROM thing WHERE key='/type/library'
+0.0 (1): SELECT * FROM property WHERE type=36 AND name='status'
+2014-02-19 09:07:21 [infobase.cache] [DEBUG] MemcachedDict.update: ['/type/string', '/type/text', '/type/library', '/type/property']
+Error Opening file var/cache/GeoLiteCity.dat
+0.01 (1): SELECT store.key FROM store, store_index WHERE store.id=store_index.store_id AND type='account' AND name='bot' and value='true'
+0.01 (1): SELECT t.* FROM transaction t WHERE 1 = 1 AND (t.author_id NOT in (-1) OR t.author_id IS NULL) ORDER BY t.created DESC LIMIT 100 OFFSET 0
+0.0 (1): SELECT id, key FROM thing WHERE id in (524)
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/type/edition'
+0.0 (1): SELECT data FROM data WHERE thing_id=31 AND revision=1
+loading GeoIP file failed
+2014-02-19 09:07:21 [infobase.cache] [DEBUG] MemcachedDict.update: ['/type/edition']
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL54M'
+0.0 (1): SELECT data FROM data WHERE thing_id=783 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL53M'
+0.0 (1): SELECT data FROM data WHERE thing_id=781 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL48M'
+0.0 (1): SELECT data FROM data WHERE thing_id=768 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL51M'
+0.0 (1): SELECT data FROM data WHERE thing_id=776 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/people/openlibrary'
+0.0 (1): SELECT data FROM data WHERE thing_id=524 AND revision=1
+2014-02-19 09:07:21 [infobase.cache] [DEBUG] MemcachedDict.update: ['/people/openlibrary']
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL43W'
+0.0 (1): SELECT data FROM data WHERE thing_id=782 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL42W'
+0.0 (1): SELECT data FROM data WHERE thing_id=780 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL40W'
+0.0 (1): SELECT data FROM data WHERE thing_id=775 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL37W'
+0.0 (1): SELECT data FROM data WHERE thing_id=767 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL43M'
+0.0 (1): SELECT data FROM data WHERE thing_id=753 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL47M'
+0.0 (1): SELECT data FROM data WHERE thing_id=765 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL45M'
+0.0 (1): SELECT data FROM data WHERE thing_id=759 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL44M'
+0.0 (1): SELECT data FROM data WHERE thing_id=756 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL42M'
+0.0 (1): SELECT data FROM data WHERE thing_id=750 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL40M'
+0.0 (1): SELECT data FROM data WHERE thing_id=744 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL39M'
+0.0 (1): SELECT data FROM data WHERE thing_id=741 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL38M'
+0.0 (1): SELECT data FROM data WHERE thing_id=738 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL21W'
+0.0 (1): SELECT data FROM data WHERE thing_id=719 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL22A'
+0.0 (1): SELECT data FROM data WHERE thing_id=717 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL20W'
+0.0 (1): SELECT data FROM data WHERE thing_id=715 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL9M'
+0.0 (1): SELECT data FROM data WHERE thing_id=558 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL15M'
+0.0 (1): SELECT data FROM data WHERE thing_id=674 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL8M'
+0.0 (1): SELECT data FROM data WHERE thing_id=555 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL19W'
+0.0 (1): SELECT data FROM data WHERE thing_id=713 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL24982896M'
+0.0 (1): SELECT data FROM data WHERE thing_id=561 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL73243W'
+0.0 (1): SELECT data FROM data WHERE thing_id=595 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL5820529M'
+0.0 (1): SELECT data FROM data WHERE thing_id=614 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/theme/files'
+0.0 (1): SELECT data FROM data WHERE thing_id=708 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/about'
+0.0 (1): SELECT data FROM data WHERE thing_id=707 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL14W'
+0.0 (1): SELECT data FROM data WHERE thing_id=697 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL19A'
+0.0 (1): SELECT data FROM data WHERE thing_id=702 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL28M'
+0.0 (1): SELECT data FROM data WHERE thing_id=706 AND revision=2
+0.01 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL27M'
+0.0 (1): SELECT data FROM data WHERE thing_id=704 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL18A'
+0.0 (1): SELECT data FROM data WHERE thing_id=701 AND revision=1
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+2014-02-19 09:07:31 [openlibrary.home] [ERROR] Error in getting stats
+Traceback (most recent call last):
+  File "/home/vagrant/openlibrary/openlibrary/plugins/openlibrary/home.py", line 27, in GET
+    stats = admin.get_stats()
+  File "/home/vagrant/openlibrary/openlibrary/core/admin.py", line 81, in get_stats
+    docs = [couchdb.Document(doc) for doc in _get_count_docs(ndays)]
+  File "/home/vagrant/openlibrary/openlibrary/core/cache.py", line 442, in func
+    value = f(*args, **kwargs)
+  File "/home/vagrant/openlibrary/openlibrary/core/admin.py", line 75, in _get_count_docs
+    include_docs = True)]
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 984, in __iter__
+    return iter(self.rows)
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 1003, in rows
+    self._fetch()
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 990, in _fetch
+    data = self.view._exec(self.options)
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 880, in _exec
+    _, _, data = self.resource.get_json(**self._encode_options(options))
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 393, in get_json
+    status, headers, data = self.get(*a, **k)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 374, in get
+    return self._request('GET', path, headers=headers, **params)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 419, in _request
+    credentials=self.credentials)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 239, in request
+    resp = _try_request_with_retries(iter(self.retry_delays))
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 205, in _try_request_with_retries
+    raise e
+error: [Errno 111] Connection refused
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+/home/vagrant/openlibrary/openlibrary/plugins/upstream/utils.py:612: FutureWarning: This search is broken in 1.3 and earlier, and will be fixed in a future version.  If you rely on the current behaviour, change it to './/item'
+  return [parse_item(item) for item in tree.findall("//item")]
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+0.0 (1): SELECT * FROM thing WHERE key='/type/library'
+0.0 (1): SELECT * FROM property
+0.0 (1): SELECT * FROM thing WHERE id IN (1, 41, 11, 12, 13, 14, 50, 46, 56, 57, 31)
+0.0 (1): SELECT id FROM thing WHERE key='/type/library'
+0.0 (1): SELECT * FROM property WHERE type=36 AND name='status'
+Error Opening file var/cache/GeoLiteCity.dat
+0.0 (1): SELECT store.key FROM store, store_index WHERE store.id=store_index.store_id AND type='account' AND name='bot' and value='true'
+0.0 (1): SELECT t.* FROM transaction t WHERE 1 = 1 AND (t.author_id NOT in (-1) OR t.author_id IS NULL) ORDER BY t.created DESC LIMIT 100 OFFSET 0
+0.0 (1): SELECT id, key FROM thing WHERE id in (524)
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL54M'
+0.0 (1): SELECT data FROM data WHERE thing_id=783 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL53M'
+0.0 (1): SELECT data FROM data WHERE thing_id=781 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL48M'
+0.0 (1): SELECT data FROM data WHERE thing_id=768 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL51M'
+0.0 (1): SELECT data FROM data WHERE thing_id=776 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL43W'
+0.0 (1): SELECT data FROM data WHERE thing_id=782 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL42W'
+0.0 (1): SELECT data FROM data WHERE thing_id=780 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL40W'
+0.0 (1): SELECT data FROM data WHERE thing_id=775 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL37W'
+0.0 (1): SELECT data FROM data WHERE thing_id=767 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL43M'
+0.0 (1): SELECT data FROM data WHERE thing_id=753 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL47M'
+0.0 (1): SELECT data FROM data WHERE thing_id=765 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL45M'
+0.0 (1): SELECT data FROM data WHERE thing_id=759 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL44M'
+0.0 (1): SELECT data FROM data WHERE thing_id=756 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL42M'
+0.0 (1): SELECT data FROM data WHERE thing_id=750 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL40M'
+0.0 (1): SELECT data FROM data WHERE thing_id=744 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL39M'
+0.0 (1): SELECT data FROM data WHERE thing_id=741 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL38M'
+0.0 (1): SELECT data FROM data WHERE thing_id=738 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL21W'
+0.0 (1): SELECT data FROM data WHERE thing_id=719 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL22A'
+0.0 (1): SELECT data FROM data WHERE thing_id=717 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL20W'
+0.0 (1): SELECT data FROM data WHERE thing_id=715 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL9M'
+0.0 (1): SELECT data FROM data WHERE thing_id=558 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL15M'
+0.0 (1): SELECT data FROM data WHERE thing_id=674 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL8M'
+0.0 (1): SELECT data FROM data WHERE thing_id=555 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL19W'
+0.0 (1): SELECT data FROM data WHERE thing_id=713 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL24982896M'
+0.0 (1): SELECT data FROM data WHERE thing_id=561 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL73243W'
+0.0 (1): SELECT data FROM data WHERE thing_id=595 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL5820529M'
+0.0 (1): SELECT data FROM data WHERE thing_id=614 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/theme/files'
+0.0 (1): SELECT data FROM data WHERE thing_id=708 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/about'
+0.0 (1): SELECT data FROM data WHERE thing_id=707 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL14W'
+0.0 (1): SELECT data FROM data WHERE thing_id=697 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL19A'
+0.0 (1): SELECT data FROM data WHERE thing_id=702 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL28M'
+0.0 (1): SELECT data FROM data WHERE thing_id=706 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL27M'
+0.0 (1): SELECT data FROM data WHERE thing_id=704 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL18A'
+0.0 (1): SELECT data FROM data WHERE thing_id=701 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL42W'
+0.0 (1): SELECT data FROM data WHERE thing_id=780 AND revision=2
+2014-02-19 09:08:50 [infobase.cache] [DEBUG] MemcachedDict.update: ['/works/OL42W']
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL42W'
+0.0 (1): SELECT set_config('statement_timeout', '60000', false)
+0.0 (2): SELECT thing.key, version.revision, transaction.* FROM thing, version, transaction WHERE version.thing_id = thing.id AND version.transaction_id = transaction.id AND thing_id=780 ORDER BY transaction.created desc LIMIT 5 OFFSET 0
+0.0 (3): SELECT * FROM thing WHERE id IN (524)
+0.0 (1): SELECT thing.key, data.data from thing, data WHERE data.revision = thing.latest_revision and data.thing_id=thing.id  AND thing.key IN ('/people/openlibrary')
+0.0 (1): SELECT * FROM thing WHERE key='/type/work'
+0.0 (1): SELECT data FROM data WHERE thing_id=46 AND revision=1
+2014-02-19 09:08:50 [infobase.cache] [DEBUG] MemcachedDict.update: ['/type/work']
+0.0 (1): SELECT * FROM thing WHERE key = '/type/edition'
+0.0 (1): SELECT * FROM property WHERE type = 31 AND name = 'works'
+0.0 (1): SELECT * FROM thing WHERE key = '/works/OL42W'
+0.0 (1): SELECT count(*) FROM edition_ref WHERE key_id=62 AND value=780
+0.0 (1): SELECT thing.key, data.data from thing, data WHERE data.revision = thing.latest_revision and data.thing_id=thing.id  AND thing.key IN ('/books/OL53M')
+0.0 (1): SELECT thing.key, data.data from thing, data WHERE data.revision = thing.latest_revision and data.thing_id=thing.id  AND thing.key IN ('/books/OL53M')
+0.0 (1): SELECT thing.key, data.data from thing, data WHERE data.revision = thing.latest_revision and data.thing_id=thing.id  AND thing.key IN ('/books/OL53M')
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+0.0 (1): SELECT thing.key, data.data from thing, data WHERE data.revision = thing.latest_revision and data.thing_id=thing.id  AND thing.key IN ('/books/OL53M')
+0.0 (1): SELECT * FROM thing WHERE key='/config/edition'
+0.0 (1): SELECT data FROM data WHERE thing_id=61 AND revision=1
+2014-02-19 09:08:51 [infobase.cache] [DEBUG] MemcachedDict.update: ['/config/edition']
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+0.0 (1): SELECT * FROM thing WHERE key='/type/library'
+0.0 (1): SELECT * FROM property
+0.0 (1): SELECT * FROM thing WHERE id IN (1, 41, 11, 12, 13, 14, 50, 46, 56, 57, 31)
+0.0 (1): SELECT id FROM thing WHERE key='/type/library'
+0.0 (1): SELECT * FROM property WHERE type=36 AND name='status'
+Error Opening file var/cache/GeoLiteCity.dat
+0.0 (1): SELECT store.key FROM store, store_index WHERE store.id=store_index.store_id AND type='account' AND name='bot' and value='true'
+0.0 (1): SELECT t.* FROM transaction t WHERE 1 = 1 AND (t.author_id NOT in (-1) OR t.author_id IS NULL) ORDER BY t.created DESC LIMIT 100 OFFSET 0
+0.0 (1): SELECT id, key FROM thing WHERE id in (524)
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL54M'
+0.0 (1): SELECT data FROM data WHERE thing_id=783 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL53M'
+0.0 (1): SELECT data FROM data WHERE thing_id=781 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL48M'
+0.0 (1): SELECT data FROM data WHERE thing_id=768 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL51M'
+0.0 (1): SELECT data FROM data WHERE thing_id=776 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL43W'
+0.0 (1): SELECT data FROM data WHERE thing_id=782 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL42W'
+0.0 (1): SELECT data FROM data WHERE thing_id=780 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL40W'
+0.0 (1): SELECT data FROM data WHERE thing_id=775 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL37W'
+0.0 (1): SELECT data FROM data WHERE thing_id=767 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL43M'
+0.0 (1): SELECT data FROM data WHERE thing_id=753 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL47M'
+0.0 (1): SELECT data FROM data WHERE thing_id=765 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL45M'
+0.0 (1): SELECT data FROM data WHERE thing_id=759 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL44M'
+0.0 (1): SELECT data FROM data WHERE thing_id=756 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL42M'
+0.0 (1): SELECT data FROM data WHERE thing_id=750 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL40M'
+0.0 (1): SELECT data FROM data WHERE thing_id=744 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL39M'
+0.0 (1): SELECT data FROM data WHERE thing_id=741 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL38M'
+0.0 (1): SELECT data FROM data WHERE thing_id=738 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL21W'
+0.0 (1): SELECT data FROM data WHERE thing_id=719 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL22A'
+0.0 (1): SELECT data FROM data WHERE thing_id=717 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL20W'
+0.0 (1): SELECT data FROM data WHERE thing_id=715 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL9M'
+0.0 (1): SELECT data FROM data WHERE thing_id=558 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL15M'
+0.0 (1): SELECT data FROM data WHERE thing_id=674 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL8M'
+0.0 (1): SELECT data FROM data WHERE thing_id=555 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL19W'
+0.0 (1): SELECT data FROM data WHERE thing_id=713 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL24982896M'
+0.0 (1): SELECT data FROM data WHERE thing_id=561 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL73243W'
+0.0 (1): SELECT data FROM data WHERE thing_id=595 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL5820529M'
+0.0 (1): SELECT data FROM data WHERE thing_id=614 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/theme/files'
+0.0 (1): SELECT data FROM data WHERE thing_id=708 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/about'
+0.0 (1): SELECT data FROM data WHERE thing_id=707 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL14W'
+0.0 (1): SELECT data FROM data WHERE thing_id=697 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL19A'
+0.0 (1): SELECT data FROM data WHERE thing_id=702 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL28M'
+0.0 (1): SELECT data FROM data WHERE thing_id=706 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL27M'
+0.0 (1): SELECT data FROM data WHERE thing_id=704 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL18A'
+0.0 (1): SELECT data FROM data WHERE thing_id=701 AND revision=1
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+2014-02-19 09:11:02 [openlibrary.home] [ERROR] Error in getting stats
+Traceback (most recent call last):
+  File "/home/vagrant/openlibrary/openlibrary/plugins/openlibrary/home.py", line 27, in GET
+    stats = admin.get_stats()
+  File "/home/vagrant/openlibrary/openlibrary/core/admin.py", line 81, in get_stats
+    docs = [couchdb.Document(doc) for doc in _get_count_docs(ndays)]
+  File "/home/vagrant/openlibrary/openlibrary/core/cache.py", line 442, in func
+    value = f(*args, **kwargs)
+  File "/home/vagrant/openlibrary/openlibrary/core/admin.py", line 75, in _get_count_docs
+    include_docs = True)]
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 984, in __iter__
+    return iter(self.rows)
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 1003, in rows
+    self._fetch()
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 990, in _fetch
+    data = self.view._exec(self.options)
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 880, in _exec
+    _, _, data = self.resource.get_json(**self._encode_options(options))
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 393, in get_json
+    status, headers, data = self.get(*a, **k)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 374, in get
+    return self._request('GET', path, headers=headers, **params)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 419, in _request
+    credentials=self.credentials)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 239, in request
+    resp = _try_request_with_retries(iter(self.retry_delays))
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 205, in _try_request_with_retries
+    raise e
+error: [Errno 111] Connection refused
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+2014-02-19 09:11:02 [openlibrary] [ERROR] Failed to fetch blog feeds
+Traceback (most recent call last):
+  File "/home/vagrant/openlibrary/openlibrary/plugins/upstream/utils.py", line 597, in _get_blog_feeds
+    tree = etree.parse(urllib.urlopen(url))
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1183, in parse
+    tree.parse(source, parser)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 656, in parse
+    parser.feed(data)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1643, in feed
+    self._raiseerror(v)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1507, in _raiseerror
+    raise err
+ParseError: not well-formed (invalid token): line 1, column 0
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+0.0 (1): SELECT * FROM thing WHERE key='/type/library'
+0.0 (1): SELECT * FROM property
+0.0 (1): SELECT * FROM thing WHERE id IN (1, 41, 11, 12, 13, 14, 50, 46, 56, 57, 31)
+0.0 (1): SELECT id FROM thing WHERE key='/type/library'
+0.0 (1): SELECT * FROM property WHERE type=36 AND name='status'
+Error Opening file var/cache/GeoLiteCity.dat
+0.0 (1): SELECT store.key FROM store, store_index WHERE store.id=store_index.store_id AND type='account' AND name='bot' and value='true'
+0.0 (1): SELECT t.* FROM transaction t WHERE 1 = 1 AND (t.author_id NOT in (-1) OR t.author_id IS NULL) ORDER BY t.created DESC LIMIT 100 OFFSET 0
+0.0 (1): SELECT id, key FROM thing WHERE id in (524)
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL54M'
+0.0 (1): SELECT data FROM data WHERE thing_id=783 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL53M'
+0.0 (1): SELECT data FROM data WHERE thing_id=781 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL48M'
+0.0 (1): SELECT data FROM data WHERE thing_id=768 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL51M'
+0.0 (1): SELECT data FROM data WHERE thing_id=776 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL43W'
+0.0 (1): SELECT data FROM data WHERE thing_id=782 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL42W'
+0.0 (1): SELECT data FROM data WHERE thing_id=780 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL40W'
+0.0 (1): SELECT data FROM data WHERE thing_id=775 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL37W'
+0.0 (1): SELECT data FROM data WHERE thing_id=767 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL43M'
+0.0 (1): SELECT data FROM data WHERE thing_id=753 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL47M'
+0.0 (1): SELECT data FROM data WHERE thing_id=765 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL45M'
+0.0 (1): SELECT data FROM data WHERE thing_id=759 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL44M'
+0.0 (1): SELECT data FROM data WHERE thing_id=756 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL42M'
+0.0 (1): SELECT data FROM data WHERE thing_id=750 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL40M'
+0.0 (1): SELECT data FROM data WHERE thing_id=744 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL39M'
+0.0 (1): SELECT data FROM data WHERE thing_id=741 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL38M'
+0.0 (1): SELECT data FROM data WHERE thing_id=738 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL21W'
+0.0 (1): SELECT data FROM data WHERE thing_id=719 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL22A'
+0.0 (1): SELECT data FROM data WHERE thing_id=717 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL20W'
+0.0 (1): SELECT data FROM data WHERE thing_id=715 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL9M'
+0.0 (1): SELECT data FROM data WHERE thing_id=558 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL15M'
+0.0 (1): SELECT data FROM data WHERE thing_id=674 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL8M'
+0.0 (1): SELECT data FROM data WHERE thing_id=555 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL19W'
+0.0 (1): SELECT data FROM data WHERE thing_id=713 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL24982896M'
+0.0 (1): SELECT data FROM data WHERE thing_id=561 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL73243W'
+0.0 (1): SELECT data FROM data WHERE thing_id=595 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL5820529M'
+0.0 (1): SELECT data FROM data WHERE thing_id=614 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/theme/files'
+0.0 (1): SELECT data FROM data WHERE thing_id=708 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/about'
+0.0 (1): SELECT data FROM data WHERE thing_id=707 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL14W'
+0.0 (1): SELECT data FROM data WHERE thing_id=697 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL19A'
+0.0 (1): SELECT data FROM data WHERE thing_id=702 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL28M'
+0.0 (1): SELECT data FROM data WHERE thing_id=706 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL27M'
+0.0 (1): SELECT data FROM data WHERE thing_id=704 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL18A'
+0.0 (1): SELECT data FROM data WHERE thing_id=701 AND revision=1
+loading GeoIP file failed
+2014-02-19 09:14:55 [openlibrary.home] [ERROR] Error in getting stats
+Traceback (most recent call last):
+  File "/home/vagrant/openlibrary/openlibrary/plugins/openlibrary/home.py", line 27, in GET
+    stats = admin.get_stats()
+  File "/home/vagrant/openlibrary/openlibrary/core/admin.py", line 81, in get_stats
+    docs = [couchdb.Document(doc) for doc in _get_count_docs(ndays)]
+  File "/home/vagrant/openlibrary/openlibrary/core/cache.py", line 442, in func
+    value = f(*args, **kwargs)
+  File "/home/vagrant/openlibrary/openlibrary/core/admin.py", line 75, in _get_count_docs
+    include_docs = True)]
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 984, in __iter__
+    return iter(self.rows)
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 1003, in rows
+    self._fetch()
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 990, in _fetch
+    data = self.view._exec(self.options)
+  File "/usr/lib/python2.7/dist-packages/couchdb/client.py", line 880, in _exec
+    _, _, data = self.resource.get_json(**self._encode_options(options))
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 393, in get_json
+    status, headers, data = self.get(*a, **k)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 374, in get
+    return self._request('GET', path, headers=headers, **params)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 419, in _request
+    credentials=self.credentials)
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 239, in request
+    resp = _try_request_with_retries(iter(self.retry_delays))
+  File "/usr/lib/python2.7/dist-packages/couchdb/http.py", line 205, in _try_request_with_retries
+    raise e
+error: [Errno 111] Connection refused
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL41W'
+0.0 (1): SELECT data FROM data WHERE thing_id=778 AND revision=1
+loading GeoIP file failed
+2014-02-19 09:27:27 [infobase.cache] [DEBUG] MemcachedDict.update: ['/works/OL41W']
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL41W'
+0.0 (1): SELECT set_config('statement_timeout', '60000', false)
+0.0 (2): SELECT thing.key, version.revision, transaction.* FROM thing, version, transaction WHERE version.thing_id = thing.id AND version.transaction_id = transaction.id AND thing_id=778 ORDER BY transaction.created desc LIMIT 5 OFFSET 0
+0.0 (3): SELECT * FROM thing WHERE id IN (524)
+0.0 (1): SELECT thing.key, data.data from thing, data WHERE data.revision = thing.latest_revision and data.thing_id=thing.id  AND thing.key IN ('/people/openlibrary')
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL42A'
+0.0 (1): SELECT data FROM data WHERE thing_id=777 AND revision=1
+loading GeoIP file failed
+2014-02-19 09:27:28 [infobase.cache] [DEBUG] MemcachedDict.update: ['/authors/OL42A']
+0.0 (1): SELECT * FROM thing WHERE key = '/type/edition'
+0.0 (1): SELECT * FROM property WHERE type = 31 AND name = 'works'
+0.0 (1): SELECT * FROM thing WHERE key = '/works/OL41W'
+0.0 (1): SELECT count(*) FROM edition_ref WHERE key_id=62 AND value=778
+0.0 (1): SELECT thing.key, data.data from thing, data WHERE data.revision = thing.latest_revision and data.thing_id=thing.id  AND thing.key IN ('/books/OL52M')
+0.0 (1): SELECT thing.key, data.data from thing, data WHERE data.revision = thing.latest_revision and data.thing_id=thing.id  AND thing.key IN ('/books/OL52M')
+0.0 (1): SELECT thing.key, data.data from thing, data WHERE data.revision = thing.latest_revision and data.thing_id=thing.id  AND thing.key IN ('/books/OL52M')
+'Could not find memcache_servers in the configuration. Used dummy memcache.'
+0.0 (1): SELECT thing.key, data.data from thing, data WHERE data.revision = thing.latest_revision and data.thing_id=thing.id  AND thing.key IN ('/books/OL52M')
+0.0 (1): SELECT store.key FROM store, store_index WHERE store.id=store_index.store_id AND type='account' AND name='bot' and value='true'
+0.0 (1): SELECT t.* FROM transaction t WHERE 1 = 1 AND (t.author_id NOT in (-1) OR t.author_id IS NULL) ORDER BY t.created DESC LIMIT 100 OFFSET 0
+0.0 (1): SELECT id, key FROM thing WHERE id in (524)
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL54M'
+0.0 (1): SELECT data FROM data WHERE thing_id=783 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL53M'
+0.0 (1): SELECT data FROM data WHERE thing_id=781 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL48M'
+0.0 (1): SELECT data FROM data WHERE thing_id=768 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL51M'
+0.0 (1): SELECT data FROM data WHERE thing_id=776 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL43W'
+0.0 (1): SELECT data FROM data WHERE thing_id=782 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL42W'
+0.0 (1): SELECT data FROM data WHERE thing_id=780 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL40W'
+0.0 (1): SELECT data FROM data WHERE thing_id=775 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL37W'
+0.0 (1): SELECT data FROM data WHERE thing_id=767 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL43M'
+0.0 (1): SELECT data FROM data WHERE thing_id=753 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL47M'
+0.0 (1): SELECT data FROM data WHERE thing_id=765 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL45M'
+0.0 (1): SELECT data FROM data WHERE thing_id=759 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL44M'
+0.0 (1): SELECT data FROM data WHERE thing_id=756 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL42M'
+0.0 (1): SELECT data FROM data WHERE thing_id=750 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL40M'
+0.0 (1): SELECT data FROM data WHERE thing_id=744 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL39M'
+0.0 (1): SELECT data FROM data WHERE thing_id=741 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL38M'
+0.0 (1): SELECT data FROM data WHERE thing_id=738 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL21W'
+0.0 (1): SELECT data FROM data WHERE thing_id=719 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL22A'
+0.0 (1): SELECT data FROM data WHERE thing_id=717 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL20W'
+0.0 (1): SELECT data FROM data WHERE thing_id=715 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL9M'
+0.0 (1): SELECT data FROM data WHERE thing_id=558 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL15M'
+0.0 (1): SELECT data FROM data WHERE thing_id=674 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL8M'
+0.0 (1): SELECT data FROM data WHERE thing_id=555 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL19W'
+0.0 (1): SELECT data FROM data WHERE thing_id=713 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL24982896M'
+0.0 (1): SELECT data FROM data WHERE thing_id=561 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL73243W'
+0.0 (1): SELECT data FROM data WHERE thing_id=595 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL5820529M'
+0.0 (1): SELECT data FROM data WHERE thing_id=614 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/theme/files'
+0.0 (1): SELECT data FROM data WHERE thing_id=708 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/about'
+0.0 (1): SELECT data FROM data WHERE thing_id=707 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL14W'
+0.0 (1): SELECT data FROM data WHERE thing_id=697 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL19A'
+0.0 (1): SELECT data FROM data WHERE thing_id=702 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL28M'
+0.0 (1): SELECT data FROM data WHERE thing_id=706 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL27M'
+0.0 (1): SELECT data FROM data WHERE thing_id=704 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL18A'
+0.0 (1): SELECT data FROM data WHERE thing_id=701 AND revision=1
+0.0 (1): SELECT store.key FROM store, store_index WHERE store.id=store_index.store_id AND type='account' AND name='bot' and value='true'
+0.0 (1): SELECT t.* FROM transaction t WHERE 1 = 1 AND (t.author_id NOT in (-1) OR t.author_id IS NULL) ORDER BY t.created DESC LIMIT 100 OFFSET 0
+0.0 (1): SELECT id, key FROM thing WHERE id in (524)
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL54M'
+0.0 (1): SELECT data FROM data WHERE thing_id=783 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL53M'
+0.0 (1): SELECT data FROM data WHERE thing_id=781 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL48M'
+0.0 (1): SELECT data FROM data WHERE thing_id=768 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL51M'
+0.0 (1): SELECT data FROM data WHERE thing_id=776 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL43W'
+0.0 (1): SELECT data FROM data WHERE thing_id=782 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL42W'
+0.0 (1): SELECT data FROM data WHERE thing_id=780 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL40W'
+0.0 (1): SELECT data FROM data WHERE thing_id=775 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL37W'
+0.0 (1): SELECT data FROM data WHERE thing_id=767 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL43M'
+0.0 (1): SELECT data FROM data WHERE thing_id=753 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL47M'
+0.0 (1): SELECT data FROM data WHERE thing_id=765 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL45M'
+0.0 (1): SELECT data FROM data WHERE thing_id=759 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL44M'
+0.0 (1): SELECT data FROM data WHERE thing_id=756 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL42M'
+0.0 (1): SELECT data FROM data WHERE thing_id=750 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL40M'
+0.0 (1): SELECT data FROM data WHERE thing_id=744 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL39M'
+0.0 (1): SELECT data FROM data WHERE thing_id=741 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL38M'
+0.0 (1): SELECT data FROM data WHERE thing_id=738 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL21W'
+0.0 (1): SELECT data FROM data WHERE thing_id=719 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL22A'
+0.0 (1): SELECT data FROM data WHERE thing_id=717 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL20W'
+0.0 (1): SELECT data FROM data WHERE thing_id=715 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL9M'
+0.0 (1): SELECT data FROM data WHERE thing_id=558 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL15M'
+0.0 (1): SELECT data FROM data WHERE thing_id=674 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL8M'
+0.0 (1): SELECT data FROM data WHERE thing_id=555 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL19W'
+0.0 (1): SELECT data FROM data WHERE thing_id=713 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL24982896M'
+0.0 (1): SELECT data FROM data WHERE thing_id=561 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL73243W'
+0.0 (1): SELECT data FROM data WHERE thing_id=595 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL5820529M'
+0.0 (1): SELECT data FROM data WHERE thing_id=614 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/theme/files'
+0.0 (1): SELECT data FROM data WHERE thing_id=708 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/about'
+0.0 (1): SELECT data FROM data WHERE thing_id=707 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL14W'
+0.0 (1): SELECT data FROM data WHERE thing_id=697 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL19A'
+0.0 (1): SELECT data FROM data WHERE thing_id=702 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL28M'
+0.0 (1): SELECT data FROM data WHERE thing_id=706 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL27M'
+0.0 (1): SELECT data FROM data WHERE thing_id=704 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL18A'
+0.0 (1): SELECT data FROM data WHERE thing_id=701 AND revision=1
+0.0 (1): SELECT store.key FROM store, store_index WHERE store.id=store_index.store_id AND type='account' AND name='bot' and value='true'
+0.0 (1): SELECT t.* FROM transaction t WHERE 1 = 1 AND (t.author_id NOT in (-1) OR t.author_id IS NULL) ORDER BY t.created DESC LIMIT 100 OFFSET 0
+0.0 (1): SELECT id, key FROM thing WHERE id in (524)
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL54M'
+0.0 (1): SELECT data FROM data WHERE thing_id=783 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL53M'
+0.0 (1): SELECT data FROM data WHERE thing_id=781 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL48M'
+0.0 (1): SELECT data FROM data WHERE thing_id=768 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL51M'
+0.0 (1): SELECT data FROM data WHERE thing_id=776 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL43W'
+0.0 (1): SELECT data FROM data WHERE thing_id=782 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL42W'
+0.0 (1): SELECT data FROM data WHERE thing_id=780 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL52M'
+0.0 (1): SELECT data FROM data WHERE thing_id=779 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL40W'
+0.0 (1): SELECT data FROM data WHERE thing_id=775 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL50M'
+0.0 (1): SELECT data FROM data WHERE thing_id=774 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL49M'
+0.0 (1): SELECT data FROM data WHERE thing_id=771 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL37W'
+0.0 (1): SELECT data FROM data WHERE thing_id=767 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL43M'
+0.0 (1): SELECT data FROM data WHERE thing_id=753 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL47M'
+0.0 (1): SELECT data FROM data WHERE thing_id=765 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL45M'
+0.0 (1): SELECT data FROM data WHERE thing_id=759 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL44M'
+0.0 (1): SELECT data FROM data WHERE thing_id=756 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL42M'
+0.0 (1): SELECT data FROM data WHERE thing_id=750 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL41M'
+0.0 (1): SELECT data FROM data WHERE thing_id=747 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL40M'
+0.0 (1): SELECT data FROM data WHERE thing_id=744 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL39M'
+0.0 (1): SELECT data FROM data WHERE thing_id=741 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL38M'
+0.0 (1): SELECT data FROM data WHERE thing_id=738 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL37M'
+0.0 (1): SELECT data FROM data WHERE thing_id=735 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL36M'
+0.0 (1): SELECT data FROM data WHERE thing_id=732 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL35M'
+0.0 (1): SELECT data FROM data WHERE thing_id=729 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL34M'
+0.0 (1): SELECT data FROM data WHERE thing_id=726 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL33M'
+0.0 (1): SELECT data FROM data WHERE thing_id=723 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL22W'
+0.0 (1): SELECT data FROM data WHERE thing_id=722 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL21W'
+0.0 (1): SELECT data FROM data WHERE thing_id=719 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL22A'
+0.0 (1): SELECT data FROM data WHERE thing_id=717 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL20W'
+0.0 (1): SELECT data FROM data WHERE thing_id=715 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL9M'
+0.0 (1): SELECT data FROM data WHERE thing_id=558 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL15M'
+0.0 (1): SELECT data FROM data WHERE thing_id=674 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL8M'
+0.0 (1): SELECT data FROM data WHERE thing_id=555 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL19W'
+0.0 (1): SELECT data FROM data WHERE thing_id=713 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL30M'
+0.0 (1): SELECT data FROM data WHERE thing_id=714 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL24982896M'
+0.0 (1): SELECT data FROM data WHERE thing_id=561 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL73243W'
+0.0 (1): SELECT data FROM data WHERE thing_id=595 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL5820529M'
+0.0 (1): SELECT data FROM data WHERE thing_id=614 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL18W'
+0.0 (1): SELECT data FROM data WHERE thing_id=710 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL29M'
+0.0 (1): SELECT data FROM data WHERE thing_id=711 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/theme/files'
+0.0 (1): SELECT data FROM data WHERE thing_id=708 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/about'
+0.0 (1): SELECT data FROM data WHERE thing_id=707 AND revision=1
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL14W'
+0.0 (1): SELECT data FROM data WHERE thing_id=697 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL19A'
+0.0 (1): SELECT data FROM data WHERE thing_id=702 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=4
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL17W'
+0.0 (1): SELECT data FROM data WHERE thing_id=705 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL28M'
+0.0 (1): SELECT data FROM data WHERE thing_id=706 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL12A'
+0.0 (1): SELECT data FROM data WHERE thing_id=678 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/books/OL27M'
+0.0 (1): SELECT data FROM data WHERE thing_id=704 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=3
+0.0 (1): SELECT * FROM thing WHERE key='/works/OL16W'
+0.0 (1): SELECT data FROM data WHERE thing_id=703 AND revision=2
+0.0 (1): SELECT * FROM thing WHERE key='/authors/OL18A'
+0.0 (1): SELECT data FROM data WHERE thing_id=701 AND revision=1
+2014-02-19 09:28:39 [786] [INFO] Worker exiting (pid: 786)
+2014-02-19 09:28:39 [783] [INFO] Handling signal: term
+2014-02-19 09:28:39 [789] [INFO] Worker exiting (pid: 789)
+2014-02-19 09:28:39 [787] [INFO] Worker exiting (pid: 787)
+2014-02-19 09:28:39 [788] [INFO] Worker exiting (pid: 788)
+Exception KeyError: KeyError(140150385952512,) in <module 'threading' from '/usr/lib/python2.7/threading.pyc'> ignored
+Exception KeyError: KeyError(140150385952512,) in <module 'threading' from '/usr/lib/python2.7/threading.pyc'> ignored
+Exception KeyError: KeyError(140150385952512,) in <module 'threading' from '/usr/lib/python2.7/threading.pyc'> ignored
+Exception KeyError: KeyError(140150385952512,) in <module 'threading' from '/usr/lib/python2.7/threading.pyc'> ignored
+2014-02-19 09:28:39 [783] [INFO] Shutting down: Master

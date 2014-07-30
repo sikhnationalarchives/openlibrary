@@ -19,7 +19,10 @@ $def display_identifiers(label, ids):
                 $for id in ids:
                     $ sep = cond(loop.last, "", ", ")
                     $if id.url:
-                        <a href="$id.url">$id.value</a>$sep
+                        $if "archive.org" in id.url :
+                            <a href="$id.url.replace("http://www.archive.org/details/", "http://canadiansikharchives.com/book.php?id=")">$id.value</a>$sep
+                        $else:
+                            <a href="$id.url">$id.value</a>$sep
                     $else:
                         ${id.value}$sep
             </span></td>

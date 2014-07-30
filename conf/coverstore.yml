@@ -4,8 +4,11 @@ db_parameters:
     dbn: "postgres"
     db: "coverstore"
 
-data_root: "var/lib/coverstore"
+data_root: "/vagrant/openlibrary/var/lib/coverstore/"
 default_image: "static/images/empty.gif"
 
 # Redirects to this, if the requested cover is not found in the coverstore. Useful for dev-instance
-upstream_base_url: http://covers.openlibrary.org/
+upstream_base_url: http://covers.openlibrary.org/ #Original Setting
+# upstream_base_url: http://sikhnationalarchives.com:8070/
+
+
